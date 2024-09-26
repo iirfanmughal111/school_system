@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     /*************** CEO Team *****************/
 
-    Route::group(['namespace' => 'ceo'], function(){
+    Route::group(['namespace' => 'Ceo'], function(){
         Route::resource('institutes', 'InstitutesController');
 
             
