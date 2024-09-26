@@ -22,12 +22,10 @@ class CreateGradesTable extends Migration
             $table->string('remark', 40)->nullable();
             $table->integer('institute_id')->default(1);
             $table->tinyInteger('is_active')->default(1);
-            $table->timestamps();
+            $table->unique(['name', 'class_type_id', 'remark']);
+            $table->timestamps(); 
         });
 
-        Schema::table('grades', function (Blueprint $table) {
-            $table->unique(['name', 'class_type_id', 'remark']);
-        });
     }
 
     /**
