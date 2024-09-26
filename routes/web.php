@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\Ceo\InstitutesController;
+
 Auth::routes();
 
 //Route::get('/test', 'TestController@index')->name('test');
@@ -28,13 +28,13 @@ Route::group(['middleware' => 'auth'], function () {
 
             
     // Route to view trashed institutes
-    Route::get('institutes/trashed', [InstitutesController::class, 'trashed'])->name('institutes.trashed');
+    Route::get('institutes/trashed', ['InstitutesController@trashed'])->name('institutes.trashed');
 
     // Route to restore a soft-deleted institute
-    Route::put('institutes/{id}/restore', [InstitutesController::class, 'restore'])->name('institutes.restore');
+    Route::put('institutes/{id}/restore', ['InstitutesController@restore'])->name('institutes.restore');
 
     // Route to force delete a soft-deleted institute
-    Route::delete('institutes/{id}/forceDelete', [InstitutesController::class, 'forceDelete'])->name('institutes.forceDelete');
+    Route::delete('institutes/{id}/forceDelete', ['InstitutesController@forceDelete'])->name('institutes.forceDelete');
     });
 
 
