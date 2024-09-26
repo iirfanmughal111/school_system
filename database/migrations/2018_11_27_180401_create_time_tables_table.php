@@ -20,6 +20,8 @@ class CreateTimeTablesTable extends Migration
             $table->unsignedInteger('exam_id')->nullable();
             $table->string('year', 100);
             $table->timestamps();
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
 
             $table->unique(['my_class_id', 'exam_id', 'year']);
         });

@@ -18,6 +18,7 @@ class CreateFks extends Migration
             $table->foreign('lga_id')->references('id')->on('lgas')->onDelete('set null');
             $table->foreign('bg_id')->references('id')->on('blood_groups')->onDelete('set null');
             $table->foreign('nal_id')->references('id')->on('nationalities')->onDelete('set null');
+            
         });
 
         Schema::table('my_classes', function (Blueprint $table) {

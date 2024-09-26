@@ -28,7 +28,8 @@ class CreateStudentRecordsTable extends Migration
             $table->string('year_admitted')->nullable();
             $table->tinyInteger('grad')->default(0);
             $table->string('grad_date')->nullable();
-
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

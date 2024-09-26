@@ -18,6 +18,8 @@ class CreateSkillsTable extends Migration
             $table->string('name');
             $table->string('skill_type');
             $table->string('class_type')->nullable();
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

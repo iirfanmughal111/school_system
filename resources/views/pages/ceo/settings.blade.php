@@ -72,7 +72,7 @@
                                 <span class="font-weight-bold font-italic">M-D-Y or M/D/Y </span>
                             </div>
                         </div>
-                        <div class="form-group row  d-none">
+                        <div class="form-group row d-none">
                             <label for="lock_exam" class="col-lg-3 col-form-label font-weight-semibold">Lock Exam</label>
                             <div class="col-lg-3">
                                 <select class="form-control select" name="lock_exam" id="lock_exam">
@@ -100,13 +100,12 @@
                </fieldset>
                     <hr class="divider">
 
-                    
                     {{--Logo--}}
                     <div class="form-group row">
                         <label class="col-lg-3 col-form-label font-weight-semibold">Change Logo:</label>
                         <div class="col-lg-9">
                             <div class="mb-3">
-                                <img style="width: 100px" height="100px" src="{{ auth()->user()->institute->getLogo() }}" alt="{{ auth()->user()->institute->name }}">
+                                <img style="width: 100px" height="100px" src="{{ auth()->user()->institute->getLogo() }}" alt="">
                             </div>
                             <input name="logo" accept="image/*" type="file" class="file-input" data-show-caption="false" data-show-upload="false" data-fouc>
                         </div>

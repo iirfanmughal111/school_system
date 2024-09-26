@@ -34,6 +34,8 @@ class CreateMarksTable extends Migration
             $table->string('cum_ave')->nullable();
             $table->unsignedInteger('grade_id')->nullable();
             $table->string('year');
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

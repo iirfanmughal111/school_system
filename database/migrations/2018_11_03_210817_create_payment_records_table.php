@@ -22,6 +22,8 @@ class CreatePaymentRecordsTable extends Migration
             $table->integer('balance')->nullable();
             $table->tinyInteger('paid')->default(0);
             $table->string('year');
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

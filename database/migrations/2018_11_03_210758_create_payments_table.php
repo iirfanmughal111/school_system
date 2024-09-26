@@ -22,6 +22,8 @@ class CreatePaymentsTable extends Migration
             $table->unsignedInteger('my_class_id')->nullable();
             $table->string('description')->nullable();
             $table->string('year');
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
 

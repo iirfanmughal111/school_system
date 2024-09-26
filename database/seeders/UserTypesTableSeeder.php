@@ -14,12 +14,13 @@ class UserTypesTableSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['title' => 'accountant', 'name' => 'Accountant', 'level' => 5],
-            ['title' => 'parent', 'name' => 'Parent', 'level' => 4],
-            ['title' => 'teacher', 'name' => 'Teacher', 'level' => 3],
-            ['title' => 'admin', 'name' => 'Admin', 'level' => 2],
-            ['title' => 'super_admin', 'name' => 'Super Admin', 'level' => 1],
-           // ['title' => 'librarian', 'name' => 'librarian', 'level' => 6],
+            ['title' => 'accountant', 'name' => 'Accountant', 'level' => 6],
+            ['title' => 'parent', 'name' => 'Parent', 'level' => 5],
+            ['title' => 'teacher', 'name' => 'Teacher', 'level' => 4],
+            ['title' => 'admin', 'name' => 'Admin', 'level' => 3],
+            ['title' => 'super_admin', 'name' => 'Super Admin', 'level' => 2],
+            ['title' => 'ceo', 'name' => 'CEO', 'level' => 1],
+        //    ['title' => 'librarian', 'name' => 'librarian', 'level' => 6],
         ];
         DB::table('user_types')->insert($data);
     }

@@ -24,6 +24,8 @@ class CreateBooksTable extends Migration
             $table->string('location')->nullable();
             $table->integer('total_copies')->nullable();
             $table->integer('issued_copies')->nullable();
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

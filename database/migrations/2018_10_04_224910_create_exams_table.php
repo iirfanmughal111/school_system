@@ -18,6 +18,8 @@ class CreateExamsTable extends Migration
             $table->string('name');
             $table->tinyInteger('term');
             $table->string('year', 40);
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
 

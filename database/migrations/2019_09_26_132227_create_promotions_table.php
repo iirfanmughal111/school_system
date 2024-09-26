@@ -24,6 +24,8 @@ class CreatePromotionsTable extends Migration
             $table->string('from_session');
             $table->string('to_session');
             $table->string('status');
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
 

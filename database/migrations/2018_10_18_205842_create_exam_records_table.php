@@ -28,6 +28,8 @@ class CreateExamRecordsTable extends Migration
             $table->string('p_comment')->nullable();
             $table->string('t_comment')->nullable();
             $table->string('year');
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

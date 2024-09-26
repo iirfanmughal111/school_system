@@ -21,6 +21,8 @@ class CreateBookRequestsTable extends Migration
             $table->string('end_date');
             $table->string('returned')->default(0);
             $table->string('status')->nullable();
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

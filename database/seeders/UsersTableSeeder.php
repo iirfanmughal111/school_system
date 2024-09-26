@@ -20,25 +20,34 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->delete();
 
         $this->createNewUsers();
-        $this->createManyUsers( 3);
+        // $this->createManyUsers(1);
     }
 
     protected function createNewUsers()
     {
-        $password = Hash::make('cj'); // Default user password
+        $password = Hash::make('admin123'); // Default user password
 
         $d = [
 
-            ['name' => 'CJ Inspired',
-                'email' => 'cj@cj.com',
-                'username' => 'cj',
+            ['name' => 'Soft Solutions',
+                'email' => 'iirfandeveloper@gmail.com',
+                'username' => 'iirfandeveloper',
+                'password' => $password,
+                'user_type' => 'ceo',
+                'code' => strtoupper(Str::random(10)),
+                'remember_token' => Str::random(10),
+            ],
+
+            ['name' => 'Super Admin',
+                'email' => 'superadmin@superadmin.com',
+                'username' => 'super_admin',
                 'password' => $password,
                 'user_type' => 'super_admin',
                 'code' => strtoupper(Str::random(10)),
                 'remember_token' => Str::random(10),
             ],
 
-            ['name' => 'Admin KORA',
+            ['name' => 'Admin Irfan',
             'email' => 'admin@admin.com',
             'password' => $password,
             'user_type' => 'admin',
@@ -47,7 +56,7 @@ class UsersTableSeeder extends Seeder
             'remember_token' => Str::random(10),
             ],
 
-            ['name' => 'Teacher Chike',
+            ['name' => 'Teacher Irfan',
                 'email' => 'teacher@teacher.com',
                 'user_type' => 'teacher',
                 'username' => 'teacher',
@@ -56,7 +65,7 @@ class UsersTableSeeder extends Seeder
                 'remember_token' => Str::random(10),
             ],
 
-            ['name' => 'Parent Kaba',
+            ['name' => 'Parent Irfan',
                 'email' => 'parent@parent.com',
                 'user_type' => 'parent',
                 'username' => 'parent',
@@ -65,7 +74,7 @@ class UsersTableSeeder extends Seeder
                 'remember_token' => Str::random(10),
             ],
 
-            ['name' => 'Accountant Jeff',
+            ['name' => 'Accountant Irfan',
                 'email' => 'accountant@accountant.com',
                 'user_type' => 'accountant',
                 'username' => 'accountant',

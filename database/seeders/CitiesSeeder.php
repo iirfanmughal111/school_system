@@ -1,0 +1,127 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class CitiesSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $cities = [
+            ['name' => 'Islamabad',  'created_by' =>   1,],
+            ['name' => 'Ahmed Nager',  'created_by' => 1,],
+            ['name' => 'Ahmadpur East',  'created_by' =>   1,],
+            ['name' => 'Ali Khan',  'created_by' =>    1,],
+            ['name' => 'Alipur',  'created_by' =>  1,],
+            ['name' => 'Arifwala',  'created_by' =>    1,],
+            ['name' => 'Attock',  'created_by' =>  1,],
+            ['name' => 'Bhera',  'created_by' =>   1,],
+            ['name' => 'Bhalwal',  'created_by' => 1,],
+            ['name' => 'Bahawalnagar',  'created_by' =>    1,],
+            ['name' => 'Bahawalpur',  'created_by' =>  1,],
+            ['name' => 'Bhakkar',  'created_by' => 1,],
+            ['name' => 'Burewala',  'created_by' =>    1,],
+            ['name' => 'Chillianwala',  'created_by' =>    1,],
+            ['name' => 'Chakwal',  'created_by' => 1,],
+            ['name' => 'Chichawatni',  'created_by' => 1,],
+            ['name' => 'Chiniot',  'created_by' => 1,],
+            ['name' => 'Chishtian',  'created_by' =>   1,],
+            ['name' => 'Daska',  'created_by' =>   1,],
+            ['name' => 'Darya Khan',  'created_by' =>  1,],
+            ['name' => 'Dera Ghazi',  'created_by' =>  1,],
+            ['name' => 'Dhaular',  'created_by' => 1,],
+            ['name' => 'Dina',  'created_by' =>    1,],
+            ['name' => 'Dinga',  'created_by' =>   1,],
+            ['name' => 'Dipalpur',  'created_by' =>    1,],
+            ['name' => 'Faisalabad',  'created_by' =>  1,],
+            ['name' => 'Fateh Jhang',  'created_by' => 1,],
+            ['name' => 'Ghakhar Mandi',  'created_by' =>   1,],
+            ['name' => 'Gojra',  'created_by' =>   1,],
+            ['name' => 'Gujranwala',  'created_by' =>  1,],
+            ['name' => 'Gujrat',  'created_by' =>  1,],
+            ['name' => 'Gujar Khan',  'created_by' =>  1,],
+            ['name' => 'Hafizabad',  'created_by' =>   1,],
+            ['name' => 'Haroonabad',  'created_by' =>  1,],
+            ['name' => 'Hasilpur',  'created_by' =>    1,],
+            ['name' => 'Haveli',  'created_by' =>  1,],
+            ['name' => 'Lakha',  'created_by' =>   1,],
+            ['name' => 'Jalalpur',  'created_by' =>    1,],
+            ['name' => 'Jattan',  'created_by' =>  1,],
+            ['name' => 'Jampur',  'created_by' =>  1,],
+            ['name' => 'Jaranwala',  'created_by' =>   1,],
+            ['name' => 'Jhang',  'created_by' =>   1,],
+            ['name' => 'Jhelum',  'created_by' =>  1,],
+            ['name' => 'Kalabagh',  'created_by' =>    1,],
+            ['name' => 'Karor Lal',  'created_by' =>   1,],
+            ['name' => 'Kasur',  'created_by' =>   1,],
+            ['name' => 'Kamalia',  'created_by' => 1,],
+            ['name' => 'Kamoke',  'created_by' =>  1,],
+            ['name' => 'Khanewal',  'created_by' =>    1,],
+            ['name' => 'Khanpur',  'created_by' => 1,],
+            ['name' => 'Kharian',  'created_by' => 1,],
+            ['name' => 'Khushab',  'created_by' => 1,],
+            ['name' => 'Kot Adu',  'created_by' => 1,],
+            ['name' => 'Jauharabad',  'created_by' =>  1,],
+            ['name' => 'Lahore',  'created_by' =>  1,],
+            ['name' => 'Lalamusa',  'created_by' =>    1,],
+            ['name' => 'Layyah',  'created_by' =>  1,],
+            ['name' => 'Liaquat Pur',  'created_by' => 1,],
+            ['name' => 'Lodhran',  'created_by' => 1,],
+            ['name' => 'Malakwal',  'created_by' =>    1,],
+            ['name' => 'Mamoori',  'created_by' => 1,],
+            ['name' => 'Mailsi',  'created_by' =>  1,],
+            ['name' => 'Mandi Bahauddin',  'created_by' => 1,],
+            ['name' => 'Mian Channu',  'created_by' => 1,],
+            ['name' => 'Mianwali',  'created_by' =>    1,],
+            ['name' => 'Multan',  'created_by' =>  1,],
+            ['name' => 'Murree',  'created_by' =>  1,],
+            ['name' => 'Muridke',  'created_by' => 1,],
+            ['name' => 'Mianwali Bangla',  'created_by' => 1,],
+            ['name' => 'Muzaffargarh',  'created_by' =>    1,],
+            ['name' => 'Narowal',  'created_by' => 1,],
+            ['name' => 'Okara',  'created_by' =>   1,],
+            ['name' => 'Renala Khurd',  'created_by' =>    1,],
+            ['name' => 'Pakpattan',  'created_by' =>   1,],
+            ['name' => 'Pattoki',  'created_by' => 1,],
+            ['name' => 'Pir Mahal',  'created_by' =>   1,],
+            ['name' => 'Qaimpur',  'created_by' => 1,],
+            ['name' => 'Qila Didar',  'created_by' =>  1,],
+            ['name' => 'Rabwah',  'created_by' =>  1,],
+            ['name' => 'Raiwind',  'created_by' => 1,],
+            ['name' => 'Rajanpur',  'created_by' =>    1,],
+            ['name' => 'Rahim Yar',  'created_by' =>   1,],
+            ['name' => 'Rawalpindi',  'created_by' =>  1,],
+            ['name' => 'Sadiqabad',  'created_by' =>   1,],
+            ['name' => 'Safdarabad',  'created_by' =>  1,],
+            ['name' => 'Sahiwal',  'created_by' => 1,],
+            ['name' => 'Sangla Hill',  'created_by' => 1,],
+            ['name' => 'Sarai Alamgir',  'created_by' =>   1,],
+            ['name' => 'Sargodha',  'created_by' =>    1,],
+            ['name' => 'Shakargarh',  'created_by' =>  1,],
+            ['name' => 'Sheikhupura',  'created_by' => 1,],
+            ['name' => 'Sialkot',  'created_by' => 1,],
+            ['name' => 'Sohawa',  'created_by' =>  1,],
+            ['name' => 'Soianwala',  'created_by' =>   1,],
+            ['name' => 'Siranwali',  'created_by' =>   1,],
+            ['name' => 'Talagang',  'created_by' =>    1,],
+            ['name' => 'Taxila',  'created_by' =>  1,],
+            ['name' => 'Toba Tek',  'created_by' =>    1,],
+            ['name' => 'Vehari',  'created_by' =>  1,],
+            ['name' => 'Wah Cantonment',  'created_by' =>  1,],
+            ['name' => 'Wazirabad',  'created_by' =>   1,],
+            // Continue with the rest of your cities...
+            ['name' => 'Zhob',  'created_by' =>    1,],
+            ['name' => 'Ziarat',  'created_by' =>  1,],
+        ];
+
+        // Insert cities into the 'cities' table
+        DB::table('cities')->insert($cities);
+    }
+}

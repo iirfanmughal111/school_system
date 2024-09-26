@@ -20,6 +20,8 @@ class CreateGradesTable extends Migration
             $table->tinyInteger('mark_from');
             $table->tinyInteger('mark_to');
             $table->string('remark', 40)->nullable();
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
 

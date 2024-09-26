@@ -7,6 +7,7 @@ use App\Models\StudentRecord;
 use App\Models\Subject;
 use Hashids\Hashids;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Qs
 {
@@ -55,29 +56,33 @@ class Qs
 
     public static function getTeamSA()
     {
-        return ['admin', 'super_admin'];
+        return ['ceo','admin', 'super_admin'];
     }
+
 
     public static function getTeamAccount()
     {
-        return ['admin', 'super_admin', 'accountant'];
+        return ['ceo','admin', 'super_admin', 'accountant'];
     }
 
     public static function getTeamSAT()
     {
-        return ['admin', 'super_admin', 'teacher'];
+        return ['ceo','admin', 'super_admin', 'teacher'];
     }
 
     public static function getTeamAcademic()
     {
-        return ['admin', 'super_admin', 'teacher', 'student'];
+        return ['ceo','admin', 'super_admin', 'teacher', 'student'];
     }
 
     public static function getTeamAdministrative()
     {
-        return ['admin', 'super_admin', 'accountant'];
+        return ['ceo','admin', 'super_admin', 'accountant'];
     }
-
+    public static function getTeamCEO()
+    {
+        return ['ceo'];
+    }
     public static function hash($id)
     {
         $date = date('dMY').'CJ';
@@ -139,6 +144,10 @@ class Qs
     {
         return in_array(Auth::user()->user_type, self::getTeamAdministrative());
     }
+    public static function userIsCEO()
+    {
+        return in_array(Auth::user()->user_type, self::getTeamCEO());
+    }
 
     public static function userIsAdmin()
     {
@@ -183,7 +192,7 @@ class Qs
 
     public static function getAllUserTypes($remove=[])
     {
-        $data =  ['super_admin', 'admin', 'teacher', 'accountant', 'librarian', 'student', 'parent'];
+        $data =  ['ceo','super_admin', 'admin', 'teacher', 'accountant', 'librarian', 'student', 'parent'];
         return $remove ? array_values(array_diff($data, $remove)) : $data;
     }
 
@@ -218,6 +227,27 @@ class Qs
     {
         return ['birth_cert', 'passport',  'neco_cert', 'waec_cert', 'ref1', 'ref2'];
     }*/
+    public static function uploadFile($request,$name){
+        $file = $request->file($name); 
+        if ($file){
+            $filePath = $file->store('uploads/images', 'public');
+            $fileExt = $file->getClientOriginalExtension();
+            return array($filePath, $fileExt);
+        }
+        return null;
+    }
+    public static function deleteFile($filePath)
+    {
+        // Check if the file exists
+        if (Storage::disk('public')->exists($filePath)) {
+            // Delete the file
+            Storage::disk('public')->delete($filePath);
+            return true; // Indicating the file was deleted
+        }
+
+        return false; // File does not exist
+    }
+
 
     public static function getPublicUploadPath()
     {

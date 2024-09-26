@@ -17,6 +17,8 @@ class CreateLgasTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('state_id');
             $table->string('name');
+            $table->integer('institute_id')->default(1);
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
     }

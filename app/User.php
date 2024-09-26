@@ -6,6 +6,7 @@ use App\Models\BloodGroup;
 use App\Models\Lga;
 use App\Models\Nationality;
 use App\Models\StaffRecord;
+use App\Models\Institute;
 use App\Models\State;
 use App\Models\StudentRecord;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'phone', 'phone2', 'dob', 'gender', 'photo', 'address', 'bg_id', 'password', 'nal_id', 'state_id', 'lga_id', 'code', 'user_type', 'email_verified_at'
+        'name', 'username', 'email', 'phone', 'phone2', 'dob', 'gender', 'photo', 'address', 'bg_id', 'password', 'nal_id', 'state_id', 'lga_id', 'code', 'user_type', 'email_verified_at','institute_id'
     ];
 
     /**
@@ -63,5 +64,11 @@ class User extends Authenticatable
     public function staff()
     {
         return $this->hasMany(StaffRecord::class);
+    }
+    public function institute()
+    {
+        return $this->hasOne(Institute::class)->withDefault([
+            'name' => 'Unknown',
+        ]);
     }
 }

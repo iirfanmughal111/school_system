@@ -17,6 +17,8 @@ class CreateSettingsTable extends Migration
             $table->increments('id');
             $table->string('type');
             $table->string('description')->nullable();
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

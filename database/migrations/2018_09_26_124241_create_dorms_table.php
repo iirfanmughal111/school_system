@@ -17,6 +17,8 @@ class CreateDormsTable extends Migration
             $table->increments('id');
             $table->string('name', 100)->unique();
             $table->string('description')->nullable();
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

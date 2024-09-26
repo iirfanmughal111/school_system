@@ -18,6 +18,8 @@ class CreateStaffRecordsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('code', 100)->nullable()->unique();
             $table->string('emp_date')->nullable();
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

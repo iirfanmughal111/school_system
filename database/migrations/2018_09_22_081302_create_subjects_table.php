@@ -19,6 +19,8 @@ class CreateSubjectsTable extends Migration
             $table->string('slug', 100);
             $table->unsignedInteger('my_class_id');
             $table->unsignedInteger('teacher_id');
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
 

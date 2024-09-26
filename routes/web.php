@@ -1,16 +1,18 @@
 <?php
-
+use App\Http\Controllers\Ceo\InstitutesController;
 Auth::routes();
 
 //Route::get('/test', 'TestController@index')->name('test');
 Route::get('/privacy-policy', 'HomeController@privacy_policy')->name('privacy_policy');
 Route::get('/terms-of-use', 'HomeController@terms_of_use')->name('terms_of_use');
 
+Route::get('/file/{filename}/{file_id}', 'FileController@show')->name('file.show');
+Route::get('/file/{filename}', 'FileController@public_show')->name('file.public_show');
 
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', 'HomeController@dashboard')->name('home');
-    Route::get('/home', 'HomeController@dashboard')->name('home');
+    Route::get('/home', 'HomeController@dashboard')->name('home_dashboard');
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
     Route::group(['prefix' => 'my_account'], function() {
@@ -18,6 +20,23 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/', 'MyAccountController@update_profile')->name('my_account.update');
         Route::put('/change_password', 'MyAccountController@change_pass')->name('my_account.change_pass');
     });
+
+    /*************** CEO Team *****************/
+
+    Route::group(['namespace' => 'ceo'], function(){
+        Route::resource('institutes', 'InstitutesController');
+
+            
+    // Route to view trashed institutes
+    Route::get('institutes/trashed', [InstitutesController::class, 'trashed'])->name('institutes.trashed');
+
+    // Route to restore a soft-deleted institute
+    Route::put('institutes/{id}/restore', [InstitutesController::class, 'restore'])->name('institutes.restore');
+
+    // Route to force delete a soft-deleted institute
+    Route::delete('institutes/{id}/forceDelete', [InstitutesController::class, 'forceDelete'])->name('institutes.forceDelete');
+    });
+
 
     /*************** Support Team *****************/
     Route::group(['namespace' => 'SupportTeam',], function(){

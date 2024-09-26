@@ -19,6 +19,7 @@ class CreateSectionsTable extends Migration
             $table->unsignedInteger('my_class_id');
             $table->unsignedInteger('teacher_id')->nullable();
             $table->tinyInteger('active')->default(0);
+            $table->integer('institute_id')->default(1);
             $table->timestamps();
         });
 

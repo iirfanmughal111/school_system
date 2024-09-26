@@ -19,6 +19,8 @@ class CreateReceiptsTable extends Migration
             $table->Integer('amt_paid');
             $table->Integer('balance');
             $table->string('year');
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

@@ -10,6 +10,7 @@ class HomeController extends Controller
     protected $user;
     public function __construct(UserRepo $user)
     {
+       
         $this->user = $user;
     }
 
@@ -41,7 +42,7 @@ class HomeController extends Controller
         if(Qs::userIsTeamSAT()){
             $d['users'] = $this->user->getAll();
         }
-
+        // dd($d,true);
         return view('pages.support_team.dashboard', $d);
     }
 }

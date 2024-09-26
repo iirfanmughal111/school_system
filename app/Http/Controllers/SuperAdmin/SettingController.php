@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SettingUpdate;
 use App\Repositories\MyClassRepo;
 use App\Repositories\SettingRepo;
-
+use  App\Models\MediaFile;
 class SettingController extends Controller
 {
     protected $setting, $my_class;
@@ -40,14 +40,31 @@ class SettingController extends Controller
 
         if($req->hasFile('logo')) {
             $logo = $req->file('logo');
-            $f = Qs::getFileMetaData($logo);
-            $f['name'] = 'logo.' . $f['ext'];
-            $f['path'] = $logo->storeAs(Qs::getPublicUploadPath(), $f['name']);
-            $logo_path = asset('storage/' . $f['path']);
-            $this->setting->update('logo', $logo_path);
+            // $f = Qs::getFileMetaData($logo);
+            // $f['name'] = 'logo.' . $f['ext'];
+            list($filePath,$fileExt)= Qs::uploadFile($req,'logo');
+            if ($filePath){
+                $files = MediaFile::where('institute_id', auth()->user()->institute_id)->where('image_type','logo')->get();
+                foreach($files as $file){
+                    Qs::deleteFile($file->path);
+                    $file->delete();
+                }
+                $mediaFile = new MediaFile();
+                $mediaFile->image_type = 'logo';
+                $mediaFile->path = $filePath;
+                $mediaFile->file_ext = $fileExt;
+                $mediaFile->user_id = auth()->id();
+                $mediaFile->institute_id = auth()->user()->institute_id;
+                $mediaFile->save();
+                $this->setting->update('logo_id',  $mediaFile->id);
+            }
+            
         }
 
         return back()->with('flash_success', __('msg.update_ok'));
 
     }
+
+    
+    
 }

@@ -20,6 +20,8 @@ class CreatePinsTable extends Migration
             $table->string('times_used')->default(0);
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('student_id')->nullable();
+            $table->integer('institute_id')->default(1);
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }

@@ -5,36 +5,31 @@ namespace App\Repositories;
 use App\Models\BloodGroup;
 use App\Models\StaffRecord;
 use App\Models\UserType;
-use App\User;
+use App\Models\Institute;
 
 
-class UserRepo {
+class InstitutesRepo {
 
 
     public function update($id, $data)
     {
-        return User::find($id)->update($data);
+        return Institute::find($id)->update($data);
     }
 
     public function delete($id)
     {
-        return User::destroy($id);
+        return Institute::destroy($id);
     }
 
     public function create($data)
     {
-        return User::create($data);
+        return Institute::create($data);
     }
 
     public function getUserByType($type)
     {
-        return User::where(['user_type' => $type])->orderBy('name', 'asc')->get();
+        return Institute::where(['user_type' => $type])->orderBy('name', 'asc')->get();
     }
-    public function getSuperNewAdmin() //return those admin users whose not connected to any institute
-    {
-        return User::where('user_type' ,'super_admin')->where('institute_id',1)->orderBy('name', 'asc')->get(); //system default
-    }
-
 
     public function getAllTypes()
     {
@@ -48,17 +43,17 @@ class UserRepo {
 
     public function find($id)
     {
-        return User::find($id);
+        return Institute::find($id);
     }
 
     public function getAll()
     {
-        return User::orderBy('name', 'asc')->get();
+        return Institute::orderBy('name', 'asc')->get();
     }
 
     public function getPTAUsers()
     {
-        return User::where('user_type', '<>', 'student')->orderBy('name', 'asc')->get();
+        return Institute::where('user_type', '<>', 'student')->orderBy('name', 'asc')->get();
     }
 
     /********** STAFF RECORD ********/
