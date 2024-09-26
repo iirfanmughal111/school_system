@@ -24,7 +24,7 @@ class CreateMediaFilesTable extends Migration
 
             // Foreign key constraints
             $table->foreign('institute_id')->references('id')->on('institutes')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+           // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
