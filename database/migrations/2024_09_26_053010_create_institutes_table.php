@@ -18,7 +18,7 @@ class CreateInstitutesTable extends Migration
             $table->string('name')->nullable();
             $table->string('lga_id')->nullable();
             $table->string('state_id')->nullable();
-            $table->string('user_id')->nullable()->unique();
+            $table->bigInteger('user_id')->nullable()->unique();
             $table->string('created_by')->nullable();
             $table->string('modified_by')->nullable();
             $table->tinyInteger('is_active')->default(1);

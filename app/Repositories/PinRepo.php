@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Pin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\Qs;
 
 class PinRepo
 {
@@ -41,7 +42,7 @@ class PinRepo
 
     public function getPin($data)
     {
-        return Pin::where($data);
+        return Pin::where('institute_id',Qs::getInstituteId())->where($data);
     }
 
     public function getValid()

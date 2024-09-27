@@ -31,7 +31,8 @@ class Institute extends Model
     public function getLogo()
     {
         $thumbnail = $this->images->firstWhere('image_type', 'logo');
-        if ($thumbnail) {
+     
+        if ($thumbnail) {   
                 $thumbnailPath = str_replace('uploads/images/', '', $thumbnail->path);
                 return route('file.public_show', ['filename' => $thumbnailPath]);
             }

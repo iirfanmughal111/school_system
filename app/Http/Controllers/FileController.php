@@ -44,20 +44,16 @@ class FileController extends Controller
         return response()->file($filePath);
     }
 
-    public function public_show($filename='abc')
+    public function public_show($filename=false)
     {
        
-        $mediaFile =  MediaFile::where('path','uploads/images/'.$filename)->where('image_type' ,'!=','User Uploaded')->first();
-      
-        // dd($mediaFile);
-        if ($mediaFile){
+        if ($filename){
             // Determine the path to the file
-        $filePath = storage_path('app/public/' . $mediaFile->path);
+        $filePath = storage_path('app/public/uploads/images/' . $filename);
         // Check if the file exists
         if (!file_exists($filePath)) {
             abort(404, 'File not found');
         }
-            
             // Return the file as a response
             return response()->file($filePath);
         }

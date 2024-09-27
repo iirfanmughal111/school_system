@@ -33,6 +33,7 @@ class MyClassController extends Controller
     public function store(ClassCreate $req)
     {
         $data = $req->all();
+        $data['institute_id'] = Qs::getInstituteId();
         $mc = $this->my_class->create($data);
 
         // Create Default Section
@@ -40,6 +41,8 @@ class MyClassController extends Controller
             'name' => 'A',
             'active' => 1,
             'teacher_id' => NULL,
+            'institute_id' => Qs::getInstituteId()
+
         ];
 
         $this->my_class->createSection($s);

@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Helpers\Qs;
+use App\Models\MediaFile;
 
 class User extends Authenticatable
 {
@@ -71,4 +73,36 @@ class User extends Authenticatable
             'name' => 'Unknown',
         ]);
     }
+
+    function images(){
+        return $this->hasMany(MediaFile::class, 'user_id', 'id');
+    }
+    
+    public function getAvatar()
+    {
+        // dd( $this->images);
+        $thumbnail = $this->images->firstWhere('image_type', 'photo');
+        // dd( $thumbnail);
+        if ($thumbnail) {
+                $thumbnailPath = str_replace('uploads/images/', '', $thumbnail->path);
+                return route('file.public_show', ['filename' => $thumbnailPath]);
+            }
+            return 'https://ui-avatars.com/api/?background='.$this->random_dark_color().'&color='.$this->random_light_color().'&size=128&bold=true&name='.$this->name.'&rounded=true';
+
+        
+    }
+    function random_dark_color() {
+        $dt = '';
+        for($o=1;$o<=3;$o++)
+        {
+            $dt .= str_pad( dechex( mt_rand( 0, 127 ) ), 2, '0', STR_PAD_LEFT);
+        }
+        return $dt;
+    }
+    function random_light_color() {
+        return sprintf('%06X', mt_rand(0, 0xFFFFFF));
+    }
+ 
+     
+
 }

@@ -21,6 +21,9 @@ class SettingController extends Controller
     public function index()
     {
          $s = $this->setting->all();
+         if (!count($s))
+            $s = $this->setting->getMasterSettings();
+
          $d['class_types'] = $this->my_class->getTypes();
          $d['s'] = $s->flatMap(function($s){
             return [$s->type => $s->description];
@@ -39,12 +42,10 @@ class SettingController extends Controller
         }
 
         if($req->hasFile('logo')) {
-            $logo = $req->file('logo');
-            // $f = Qs::getFileMetaData($logo);
-            // $f['name'] = 'logo.' . $f['ext'];
+
             list($filePath,$fileExt)= Qs::uploadFile($req,'logo');
             if ($filePath){
-                $files = MediaFile::where('institute_id', auth()->user()->institute_id)->where('image_type','logo')->get();
+                $files = MediaFile::where('institute_id', Qs::getInstituteId())->where('image_type','logo')->get();
                 foreach($files as $file){
                     Qs::deleteFile($file->path);
                     $file->delete();
@@ -54,7 +55,7 @@ class SettingController extends Controller
                 $mediaFile->path = $filePath;
                 $mediaFile->file_ext = $fileExt;
                 $mediaFile->user_id = auth()->id();
-                $mediaFile->institute_id = auth()->user()->institute_id;
+                $mediaFile->institute_id = Qs::getInstituteId();
                 $mediaFile->save();
                 $this->setting->update('logo_id',  $mediaFile->id);
             }

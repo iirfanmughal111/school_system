@@ -23,7 +23,7 @@ class CreateMediaFilesTable extends Migration
             $table->timestamps(); // Created at and updated at
 
             // Foreign key constraints
-            $table->foreign('institute_id')->references('id')->on('institutes')->onDelete('cascade');
+            // $table->foreign('institute_id')->references('id')->on('institutes')->onDelete('cascade');
            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

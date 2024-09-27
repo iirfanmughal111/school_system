@@ -17,6 +17,6 @@ class SuperAdmin
      */
     public function handle($request, Closure $next)
     {
-        return (Auth::check() && Qs::userIsSuperAdmin()) ? $next($request) : redirect()->route('login');
+        return (Auth::check() && (Qs::userIsSuperAdmin() || Qs::userIsCEO())) ? $next($request) : redirect()->route('login');
     }
 }

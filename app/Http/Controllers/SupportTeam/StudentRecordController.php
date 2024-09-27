@@ -53,7 +53,10 @@ class StudentRecordController extends Controller
     {
        $data =  $req->only(Qs::getUserRecord());
        $sr =  $req->only(Qs::getStudentData());
+       $data['institute_id'] = Qs::getInstituteId();
+       $sr['institute_id'] = Qs::getInstituteId();
 
+    //    dd($data,$sr);
         $ct = $this->my_class->findTypeByClass($req->my_class_id)->code;
        /* $ct = ($ct == 'J') ? 'JSS' : $ct;
         $ct = ($ct == 'S') ? 'SS' : $ct;*/
@@ -89,7 +92,7 @@ class StudentRecordController extends Controller
         $data['my_class'] = $mc = $this->my_class->getMC(['id' => $class_id])->first();
         $data['students'] = $this->student->findStudentsByClass($class_id);
         $data['sections'] = $this->my_class->getClassSections($class_id);
-
+        // dd($data);
         return is_null($mc) ? Qs::goWithDanger() : view('pages.support_team.students.list', $data);
     }
 

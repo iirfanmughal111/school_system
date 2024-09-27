@@ -86,9 +86,8 @@ class PinController extends Controller
         $data = [];
         for($i = 0; $i < $num; $i++){
             $code = Str::random(5).'-'.Str::random(5).'-'.Str::random(6);
-            $data[] = ['code' => strtoupper($code)];
+            $data[] = ['code' => strtoupper($code),'institute_id'=>Qs::getInstituteId()];
         }
-
          $this->pin->create($data);
         return redirect()->route('pins.index')->with('flash_success', __('msg.pin_create'));
     }

@@ -34,6 +34,7 @@ class SubjectController extends Controller
     public function store(SubjectCreate $req)
     {
         $data = $req->all();
+        $data['institute_id'] = Qs::getInstituteId();
         $this->my_class->createSubject($data);
 
         return Qs::jsonStoreOk();

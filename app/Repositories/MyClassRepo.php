@@ -6,18 +6,19 @@ use App\Models\ClassType;
 use App\Models\MyClass;
 use App\Models\Section;
 use App\Models\Subject;
+use App\Helpers\Qs;
 
 class MyClassRepo
 {
 
     public function all()
     {
-        return MyClass::orderBy('name', 'asc')->with('class_type')->get();
+        return MyClass::where('institute_id',Qs::getInstituteId())->orderBy('name', 'asc')->with('class_type')->get();
     }
 
     public function getMC($data)
     {
-        return MyClass::where($data)->with('section');
+        return MyClass::where('institute_id',Qs::getInstituteId())->where($data)->with('section');
     }
 
     public function find($id)
@@ -79,17 +80,17 @@ class MyClassRepo
 
     public function isActiveSection($section_id)
     {
-        return Section::where(['id' => $section_id, 'active' => 1])->exists();
+        return Section::where('institute_id',Qs::getInstituteId())->where(['id' => $section_id, 'active' => 1])->exists();
     }
 
     public function getAllSections()
     {
-        return Section::orderBy('name', 'asc')->with(['my_class', 'teacher'])->get();
+        return Section::where('institute_id',Qs::getInstituteId())->orderBy('name', 'asc')->with(['my_class', 'teacher'])->get();
     }
 
     public function getClassSections($class_id)
     {
-        return Section::where(['my_class_id' => $class_id])->orderBy('name', 'asc')->get();
+        return Section::where('institute_id',Qs::getInstituteId())->where(['my_class_id' => $class_id])->orderBy('name', 'asc')->get();
     }
 
     /************* Subject *******************/
@@ -116,7 +117,7 @@ class MyClassRepo
 
     public function getSubject($data)
     {
-        return Subject::where($data);
+        return Subject::where('institute_id',Qs::getInstituteId())->where($data);
     }
 
     public function getSubjectsByIDs($ids)
@@ -136,7 +137,7 @@ class MyClassRepo
 
     public function getAllSubjects()
     {
-        return Subject::orderBy('name', 'asc')->with(['my_class', 'teacher'])->get();
+        return Subject::where('institute_id',Qs::getInstituteId())->orderBy('name', 'asc')->with(['my_class', 'teacher'])->get();
     }
 
 }

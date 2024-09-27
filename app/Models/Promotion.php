@@ -7,7 +7,7 @@ use Eloquent;
 
 class Promotion extends Eloquent
 {
-    protected $fillable = ['from_class', 'from_section', 'to_class', 'to_section', 'grad', 'student_id', 'from_session', 'to_session', 'status'];
+    protected $fillable = ['from_class', 'from_section', 'institute_id','to_class', 'to_section', 'grad', 'student_id', 'from_session', 'to_session', 'status'];
 
     public function student()
     {

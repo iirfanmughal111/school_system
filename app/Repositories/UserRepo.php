@@ -6,6 +6,7 @@ use App\Models\BloodGroup;
 use App\Models\StaffRecord;
 use App\Models\UserType;
 use App\User;
+use App\Helpers\Qs;
 
 
 class UserRepo {
@@ -53,12 +54,12 @@ class UserRepo {
 
     public function getAll()
     {
-        return User::orderBy('name', 'asc')->get();
+        return User::where('institute_id',Qs::getInstituteId())->orderBy('name', 'asc')->get();
     }
 
     public function getPTAUsers()
     {
-        return User::where('user_type', '<>', 'student')->orderBy('name', 'asc')->get();
+        return User::where('institute_id',Qs::getInstituteId())->where('user_type', '<>', 'student')->orderBy('name', 'asc')->get();
     }
 
     /********** STAFF RECORD ********/

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use  App\Models\MediaFile;
 
 
 class UserController extends Controller
@@ -30,10 +31,12 @@ class UserController extends Controller
 
     public function index()
     {
+
         $ut = $this->user->getAllTypes();
         $ut2 = $ut->where('level', '>', 2);
+        $ut3 = $ut->where('level', '<', 3);
 
-        $d['user_types'] = Qs::userIsAdmin() ? $ut2 : $ut;
+        $d['user_types'] = Qs::userIsCEO() ? $ut3 : $ut2;
         $d['states'] = $this->loc->getStates();
         $d['users'] = $this->user->getPTAUsers();
         $d['nationals'] = $this->loc->getAllNationals();
@@ -83,21 +86,31 @@ class UserController extends Controller
         $pass = $req->password ?: $user_type;
         $data['password'] = Hash::make($pass);
 
-        if($req->hasFile('photo')) {
-            $photo = $req->file('photo');
-            $f = Qs::getFileMetaData($photo);
-            $f['name'] = 'photo.' . $f['ext'];
-            $f['path'] = $photo->storeAs(Qs::getUploadPath($user_type).$data['code'], $f['name']);
-            $data['photo'] = asset('storage/' . $f['path']);
-        }
+        
 
         /* Ensure that both username and Email are not blank*/
         if(!$uname && !$req->email){
             return back()->with('pop_error', __('msg.user_invalid'));
         }
-
+        $data['institute_id'] = Qs::getInstituteId();
+        // dd($data);
         $user = $this->user->create($data); // Create User
-
+       
+        if($req->hasFile('photo')) {
+            list($filePath,$fileExt)= Qs::uploadFile($req,'photo');
+            if ($filePath){
+                $mediaFile = new MediaFile();
+                $mediaFile->image_type = 'photo';
+                $mediaFile->path = $filePath;
+                $mediaFile->file_ext = $fileExt;
+                $mediaFile->user_id = $user->id;
+                $mediaFile->institute_id = Qs::getInstituteId();
+                $mediaFile->save();
+                $p['photo'] =   $mediaFile->id;
+                // dd($p['photo'],$mediaFile,$user);
+                $this->user->update($user->id,$p);
+            }
+        }
         /* CREATE STAFF RECORD */
         if($user_is_staff){
             $d2 = $req->only(Qs::getStaffRecord());
@@ -134,6 +147,7 @@ class UserController extends Controller
         else {
             $data['username'] = $user->username;
         }
+        $data['institute_id'] = Qs::getInstituteId();
 
         if($req->hasFile('photo')) {
             $photo = $req->file('photo');

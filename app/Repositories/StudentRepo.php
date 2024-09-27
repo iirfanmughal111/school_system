@@ -12,27 +12,27 @@ class StudentRepo {
 
     public function findStudentsByClass($class_id)
     {
-        return $this->activeStudents()->where(['my_class_id' => $class_id])->with(['my_class', 'user'])->get()->sortBy('user.name');
+        return $this->activeStudents()->where('institute_id',Qs::getInstituteId())->where(['my_class_id' => $class_id])->with(['my_class', 'user'])->get()->sortBy('user.name');
     }
 
     public function activeStudents()
     {
-        return StudentRecord::where(['grad' => 0]);
+        return StudentRecord::where('institute_id',Qs::getInstituteId())->where(['grad' => 0]);
     }
 
     public function gradStudents()
     {
-        return StudentRecord::where(['grad' => 1])->orderByDesc('grad_date');
+        return StudentRecord::where('institute_id',Qs::getInstituteId())->where(['grad' => 1])->orderByDesc('grad_date');
     }
 
     public function allGradStudents()
     {
-        return $this->gradStudents()->with(['my_class', 'section', 'user'])->get()->sortBy('user.name');
+        return $this->gradStudents()->where('institute_id',Qs::getInstituteId())->with(['my_class', 'section', 'user'])->get()->sortBy('user.name');
     }
 
     public function findStudentsBySection($sec_id)
     {
-        return $this->activeStudents()->where('section_id', $sec_id)->with(['user', 'my_class'])->get();
+        return $this->activeStudents()->where('institute_id',Qs::getInstituteId())->where('section_id', $sec_id)->with(['user', 'my_class'])->get();
     }
 
     public function createRecord($data)
@@ -67,7 +67,7 @@ class StudentRepo {
 
     public function getAll()
     {
-        return $this->activeStudents()->with('user');
+        return $this->activeStudents()->where('institute_id',Qs::getInstituteId())->with('user');
     }
 
     public function getGradRecord($data=[])
@@ -77,7 +77,7 @@ class StudentRepo {
 
     public function getAllDorms()
     {
-        return Dorm::orderBy('name', 'asc')->get();
+        return Dorm::orderBy('name', 'asc')->where('institute_id',Qs::getInstituteId())->get();
     }
 
     public function exists($student_id)
@@ -103,12 +103,12 @@ class StudentRepo {
 
     public function getAllPromotions()
     {
-        return Promotion::with(['student', 'fc', 'tc', 'fs', 'ts'])->where(['from_session' => Qs::getCurrentSession(), 'to_session' => Qs::getNextSession()])->get();
+        return Promotion::where('institute_id',Qs::getInstituteId())->with(['student', 'fc', 'tc', 'fs', 'ts'])->where(['from_session' => Qs::getCurrentSession(), 'to_session' => Qs::getNextSession()])->get();
     }
 
     public function getPromotions(array $where)
     {
-        return Promotion::where($where)->get();
+        return Promotion::where('institute_id',Qs::getInstituteId())->where($where)->get();
     }
 
 }

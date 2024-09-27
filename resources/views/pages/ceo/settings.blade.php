@@ -72,7 +72,7 @@
                                 <span class="font-weight-bold font-italic">M-D-Y or M/D/Y </span>
                             </div>
                         </div>
-                        <div class="form-group row d-none">
+                        <div class="form-group row d-none1">
                             <label for="lock_exam" class="col-lg-3 col-form-label font-weight-semibold">Lock Exam</label>
                             <div class="col-lg-3">
                                 <select class="form-control select" name="lock_exam" id="lock_exam">

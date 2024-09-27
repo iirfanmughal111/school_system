@@ -56,28 +56,28 @@ class Qs
 
     public static function getTeamSA()
     {
-        return ['ceo','admin', 'super_admin'];
+        return ['admin', 'super_admin'];
     }
 
 
     public static function getTeamAccount()
     {
-        return ['ceo','admin', 'super_admin', 'accountant'];
+        return ['admin', 'super_admin', 'accountant'];
     }
 
     public static function getTeamSAT()
     {
-        return ['ceo','admin', 'super_admin', 'teacher'];
+        return ['admin', 'super_admin', 'teacher'];
     }
 
     public static function getTeamAcademic()
     {
-        return ['ceo','admin', 'super_admin', 'teacher', 'student'];
+        return ['admin', 'super_admin', 'teacher', 'student'];
     }
 
     public static function getTeamAdministrative()
     {
-        return ['ceo','admin', 'super_admin', 'accountant'];
+        return ['admin', 'super_admin', 'accountant'];
     }
     public static function getTeamCEO()
     {
@@ -286,9 +286,10 @@ class Qs
         return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
     }
 
-    public static function getSetting($type)
+    public static function getSetting($type,$institute_id=1)
     {
-        return Setting::where('type', $type)->first()->description;
+        $settings = Setting::where('institute_id',$institute_id)->where('type', $type)->first();
+        return $settings ? $settings->description : 'Settings missing';
     }
 
     public static function getCurrentSession()
@@ -305,7 +306,7 @@ class Qs
 
     public static function getSystemName()
     {
-        return self::getSetting('system_name');
+        return self::getSetting('system_name',self::getInstituteId());
     }
 
     public static function findMyChildren($parent_id)
@@ -391,6 +392,10 @@ class Qs
     public static function getDaysOfTheWeek()
     {
         return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    }
+    public static function getInstituteId()
+    {
+        return Auth::check() ? Auth::user()->institute_id : 1;
     }
 
 }
