@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;  // Import SoftDeletes trait
 use App\Models\Setting;
+use App\Helpers\Qs;
 class Institute extends Model
 {
     use HasFactory, SoftDeletes;  // Use the SoftDeletes trait
@@ -36,7 +37,8 @@ class Institute extends Model
                 $thumbnailPath = str_replace('uploads/images/', '', $thumbnail->path);
                 return route('file.public_show', ['filename' => $thumbnailPath]);
             }
-        return null;
+            return Qs::getDefaultIcon(Qs::getSystemName());
+
         return $thumbnail ? route('file.show', ['filename' => $thumbnail->path]) : null;
         
     }

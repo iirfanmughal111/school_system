@@ -398,4 +398,21 @@ class Qs
         return Auth::check() ? Auth::user()->institute_id : 1;
     }
 
+    public static function random_dark_color() {
+        $dt = '';
+        for($o=1;$o<=3;$o++)
+        {
+            $dt .= str_pad( dechex( mt_rand( 0, 127 ) ), 2, '0', STR_PAD_LEFT);
+        }
+        return $dt;
+    }
+    public static function random_light_color() {
+        return sprintf('%06X', mt_rand(0, 0xFFFFFF));
+    }
+
+    public static function getDefaultIcon($name){
+        return 'https://ui-avatars.com/api/?background='.self::random_dark_color().'&color='.self::random_light_color().'&size=128&bold=true&name='.$name.'&rounded=true';
+    }   
+          
+
 }

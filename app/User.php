@@ -87,21 +87,9 @@ class User extends Authenticatable
                 $thumbnailPath = str_replace('uploads/images/', '', $thumbnail->path);
                 return route('file.public_show', ['filename' => $thumbnailPath]);
             }
-            return 'https://ui-avatars.com/api/?background='.$this->random_dark_color().'&color='.$this->random_light_color().'&size=128&bold=true&name='.$this->name.'&rounded=true';
-
-        
+        return Qs::getDefaultIcon($this->name);
     }
-    function random_dark_color() {
-        $dt = '';
-        for($o=1;$o<=3;$o++)
-        {
-            $dt .= str_pad( dechex( mt_rand( 0, 127 ) ), 2, '0', STR_PAD_LEFT);
-        }
-        return $dt;
-    }
-    function random_light_color() {
-        return sprintf('%06X', mt_rand(0, 0xFFFFFF));
-    }
+   
  
      
 

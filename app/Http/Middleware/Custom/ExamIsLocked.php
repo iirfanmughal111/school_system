@@ -17,7 +17,6 @@ class ExamIsLocked
      */
     public function handle($request, Closure $next)
     {
-    
         return $next($request);
         return (Mk::examIsLocked()) ? $next($request) : redirect()->route('dashboard');
     }
