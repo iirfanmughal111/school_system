@@ -135,13 +135,15 @@
                         </ul>
                     </li>
                 @endif
-
-                @if(Qs::userIsTeamSA())
+                @if(Qs::userIsTeamSA()  || Qs::userIsCEO())
                     {{--Manage Users--}}
                     <li class="nav-item">
                         <a href="{{ route('users.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['users.index', 'users.show', 'users.edit']) ? 'active' : '' }}"><i class="icon-users4"></i> <span> Users</span></a>
                     </li>
-
+                @endif
+                
+                @if(Qs::userIsTeamSA())
+                 
                     {{--Manage Classes--}}
                     <li class="nav-item">
                         <a href="{{ route('classes.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['classes.index','classes.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Classes</span></a>
