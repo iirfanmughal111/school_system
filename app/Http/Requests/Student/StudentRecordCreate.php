@@ -35,7 +35,9 @@ class StudentRecordCreate extends FormRequest
             'nal_id' => 'required',
             'my_class_id' => 'required',
             'section_id' => 'required',
-            'my_parent_id' => 'sometimes|nullable',
+            'my_parent_id' => 'required|nullable',
+            'tongue_id' => 'required|nullable',
+            'religion_id' => 'required|nullable',
             'dorm_id' => 'sometimes|nullable',
         ];
     }
@@ -51,6 +53,8 @@ class StudentRecordCreate extends FormRequest
             'lga_id' => 'LGA',
             'bg_id' => 'Blood Group',
             'my_parent_id' => 'Parent',
+            'tongue_id' => 'Tongue',
+            'religion_id' => 'Religion',
         ];
     }
 

@@ -65,7 +65,7 @@
                             <li class="nav-item"><a href="{{ route('tt.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['tt.index']) ? 'active' : '' }}">Timetables</a></li>
                         </ul>
                     </li>
-                    @endif
+                @endif
 
                 {{--Administrative--}}
                 @if(Qs::userIsAdministrative())
@@ -111,7 +111,7 @@
                             <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['students.list', 'students.edit', 'students.show']) ? 'nav-item-expanded' : '' }}">
                                 <a href="#" class="nav-link {{ in_array(Route::currentRouteName(), ['students.list', 'students.edit', 'students.show']) ? 'active' : '' }}">Student Information</a>
                                 <ul class="nav nav-group-sub">
-                                    @foreach(App\Models\MyClass::orderBy('name')->get() as $c)
+                                    @foreach(App\Models\MyClass::where('institute_id',Qs::getInstituteId())->orderBy('name')->get() as $c)
                                         <li class="nav-item"><a href="{{ route('students.list', $c->id) }}" class="nav-link ">{{ $c->name }}</a></li>
                                     @endforeach
                                 </ul>
@@ -139,6 +139,11 @@
                     {{--Manage Users--}}
                     <li class="nav-item">
                         <a href="{{ route('users.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['users.index', 'users.show', 'users.edit']) ? 'active' : '' }}"><i class="icon-users4"></i> <span> Users</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('religions.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['religions.index']) ? 'active' : '' }}"><i class="icomoon icon-blog"></i><span> Religion</span></a>
+                    </li>  <li class="nav-item">
+                        <a href="{{ route('tongues.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['tongues.index']) ? 'active' : '' }}"><i class="icomoon icon-earth"></i><span> Tongue</span></a>
                     </li>
                 @endif
                 

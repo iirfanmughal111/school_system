@@ -18,13 +18,13 @@ class CreateSectionsTable extends Migration
             $table->string('name', 100);
             $table->unsignedInteger('my_class_id');
             $table->unsignedInteger('teacher_id')->nullable();
-            $table->tinyInteger('active')->default(0);
+            $table->tinyInteger('active')->default(1);
             $table->integer('institute_id')->default(1);
             $table->timestamps();
         });
 
         Schema::table('sections', function (Blueprint $table) {
-            $table->unique(['name', 'my_class_id']);
+            // $table->unique(['name', 'my_class_id']);
         });
     }
 

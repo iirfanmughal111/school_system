@@ -178,6 +178,8 @@ Route::group(['middleware' => 'auth'], function () {
 /************************ SUPER ADMIN ****************************/
 Route::group(['namespace' => 'SuperAdmin','middleware' => 'super_admin'], function(){
 
+    Route::resource('tongues', 'TongueController');
+    Route::resource('religions', 'ReligionController');
     Route::get('/settings', 'SettingController@index')->name('settings');
     Route::put('/settings', 'SettingController@update')->name('settings.update');
 

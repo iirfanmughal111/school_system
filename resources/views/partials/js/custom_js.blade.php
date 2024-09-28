@@ -182,13 +182,21 @@
         input.attr('max', bal);
         bal < 1 ? $('#'+form_id).fadeOut('slow').remove() : '';
     });
+    function reloadPage(){
+    setTimeout(function(){
+        location.reload();
+    }, 3000);
+}
 
     $('form.ajax-store').on('submit', function(ev){
         ev.preventDefault();
         submitForm($(this), 'store');
         var div = $(this).data('reload');
         div ? reloadDiv(div) : '';
+        
     });
+    
+  
 
     $('form.ajax-update').on('submit', function(ev){
         ev.preventDefault();
@@ -208,6 +216,7 @@
         url = url + ' '+ div;
         $(div).load( url );
     }
+  
 
     function submitForm(form, formType){
         var btn = form.find('button[type=submit]');
@@ -230,6 +239,7 @@
             enableBtn(btn);
             formType == 'store' ? clearForm(form) : '';
             scrollTo('body');
+            reloadPage();
             return resp;
         });
         req.fail(function(e){

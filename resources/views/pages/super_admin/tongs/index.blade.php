@@ -1,24 +1,24 @@
 @extends('layouts.master')
-@section('page_title', 'Manage Institutes')
+@section('page_title', 'Manage Tongues')
 @section('content')
 
     <div class="card">
         <div class="card-header header-elements-inline">
-            <h6 class="card-title">Manage Institutes</h6>
+            <h6 class="card-title">Manage Tongues</h6>
             {!! Qs::getPanelOptions() !!}
         </div>
 
         <div class="card-body">
             <ul class="nav nav-tabs nav-tabs-highlight">
                
-                <li class="nav-item"><a href="#institute-list" class="nav-link show active" data-toggle="tab">Manage Institute</a></li>
-                <li class="nav-item"><a href="#new-institute" class="nav-link " data-toggle="tab">Create New Institute</a></li>
+                <li class="nav-item"><a href="#institute-list" class="nav-link show active" data-toggle="tab">Manage Tongues</a></li>
+                <li class="nav-item"><a href="#new-institute" class="nav-link " data-toggle="tab">Create New Tongue</a></li>
 
             </ul>
 
             <div class="tab-content">
                 <div class="tab-pane fade  " id="new-institute">
-                   @include('pages.ceo.institute.form')
+                   @include('pages.super_admin.tongs.form')
                 </div>
 
                 
@@ -28,20 +28,16 @@
                             <tr>
                                 <th>S/N</th>
                                 <th>Name</th>
-                                <th>Phone</th>
-                                <th>Email</th>
-                                <th>Address</th>
+                                <th>Code</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($institutes as $u)
+                            @foreach($tongues as $u)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $u->name }}</td>
-                                    <td>phone</td>
-                                    <td>email</td>
-                                    <td>{{ $u->email }}</td>
+                                    <td>{{ $u->code }}</td>
                                     <td class="text-center">
                                         <div class="list-icons">
                                             <div class="dropdown">
@@ -50,18 +46,13 @@
                                                 </a>
 
                                                 <div class="dropdown-menu dropdown-menu-left">
-                                                    {{--View Profile--}}
-                                                    <a href="{{ route('users.show', Qs::hash($u->id)) }}" class="dropdown-item"><i class="icon-eye"></i> View Profile</a>
                                                     
                                                     {{--Edit--}}
-                                                    <a href="{{ route('institutes.edit', $u->id) }}" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
-                                                {{-- @if(Qs::userIsSuperAdmin())
-
-                                                        <a href="{{ route('users.reset_pass', Qs::hash($u->id)) }}" class="dropdown-item"><i class="icon-lock"></i> Reset password</a>
-                                                       
-                                                        <a id="{{ Qs::hash($u->id) }}" onclick="confirmDelete(this.id)" href="#" class="dropdown-item"><i class="icon-trash"></i> Delete</a>
-                                                        <form method="post" id="item-delete-{{ Qs::hash($u->id) }}" action="{{ route('users.destroy', Qs::hash($u->id)) }}" class="hidden">@csrf @method('delete')</form>
-                                                @endif --}}
+                                                    <a href="{{ route('tongues.edit', $u->id) }}" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
+                                                    {{-- Delete --}}
+                                                    <a id="{{ Qs::hash($u->id) }}" onclick="confirmDelete(this.id)" href="#" class="dropdown-item"><i class="icon-trash"></i> Delete</a>
+                                                    <form method="post" id="item-delete-{{ Qs::hash($u->id) }}" action="{{ route('tongues.destroy', Qs::hash($u->id)) }}" class="hidden">@csrf @method('delete')</form>
+                                          
 
                                                 </div>
                                             </div>

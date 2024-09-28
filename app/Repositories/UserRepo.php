@@ -7,7 +7,8 @@ use App\Models\StaffRecord;
 use App\Models\UserType;
 use App\User;
 use App\Helpers\Qs;
-
+use App\Models\Religion;
+use App\Models\Tongue;
 
 class UserRepo {
 
@@ -29,7 +30,7 @@ class UserRepo {
 
     public function getUserByType($type)
     {
-        return User::where(['user_type' => $type])->orderBy('name', 'asc')->get();
+        return User::where('institute_id',Qs::getInstituteId())->where(['user_type' => $type])->orderBy('name', 'asc')->get();
     }
     public function getSuperNewAdmin() //return those admin users whose not connected to any institute
     {
@@ -77,5 +78,14 @@ class UserRepo {
     public function getBloodGroups()
     {
         return BloodGroup::orderBy('name')->get();
+    }
+    
+    public function getReligions()
+    {
+        return Religion::where('institute_id',Qs::getInstituteId())->orderBy('name')->get();
+    }
+    public function getTongues()
+    {
+        return Tongue::where('institute_id',Qs::getInstituteId())->orderBy('name')->get();
     }
 }

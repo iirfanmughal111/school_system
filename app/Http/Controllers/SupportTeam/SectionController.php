@@ -33,7 +33,16 @@ class SectionController extends Controller
 
     public function store(SectionCreate $req)
     {
-        $data = $req->all();
+ 
+        $data = [];
+        $data = $req->validate([
+            'name' => 'required|unique:sections,name,NULL,id,my_class_id,' .$req->my_class_id . ',institute_id,' .  Qs::getInstituteId() ,
+            'my_class_id' => 'required',
+            'teacher_id' => 'string|integer',
+            'active' => 'string|integer',
+        ]);
+        $data['institute_id'] = Qs::getInstituteId();
+
         $this->my_class->createSection($data);
 
         return Qs::jsonStoreOk();
@@ -49,7 +58,7 @@ class SectionController extends Controller
 
     public function update(SectionUpdate $req, $id)
     {
-        $data = $req->only(['name', 'teacher_id']);
+        $data = $req->only(['name', 'teacher_id','active']);
         $this->my_class->updateSection($id, $data);
 
         return Qs::jsonUpdateOk();

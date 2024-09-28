@@ -46,6 +46,16 @@
                                 </div>
 
                                 <div class="form-group row">
+                                    <label for="active" class="col-lg-3 col-form-label font-weight-semibold">Status</label>
+                                    <div class="col-lg-9">
+                                        <select data-placeholder="Select Status" class="form-control select-search" name="active" id="teacher_id">
+                                            <option value="1" {{ old('active') == 1 ? 'selected' : '' }}>Active</option>
+                                            <option value="0" {{ old('active') == 0 ? 'selected' : '' }}>Disabled</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <label for="teacher_id" class="col-lg-3 col-form-label font-weight-semibold">Teacher</label>
                                     <div class="col-lg-9">
                                         <select data-placeholder="Select Teacher" class="form-control select-search" name="teacher_id" id="teacher_id">

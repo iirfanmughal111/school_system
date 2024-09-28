@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+
 class StudentRecordController extends Controller
 {
     protected $loc, $my_class, $user, $student;
@@ -46,6 +47,8 @@ class StudentRecordController extends Controller
         $data['dorms'] = $this->student->getAllDorms();
         $data['states'] = $this->loc->getStates();
         $data['nationals'] = $this->loc->getAllNationals();
+        $data['religions'] = $this->user->getReligions()->where('is_active',1);
+        $data['tongues'] = $this->user->getTongues()->where('is_active',1);
         return view('pages.support_team.students.add', $data);
     }
 

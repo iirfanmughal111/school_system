@@ -85,6 +85,30 @@
                         </div>
 
                         <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="nal_id">Religion: <span class="text-danger">*</span></label>
+                                <select data-placeholder="Choose..." required name="religion_id" id="religion_id" class="select-search form-control">
+                                    <option value=""></option>
+                                    @foreach($religions as $religion)
+                                        <option {{ (old('religion_id') == $religion->id ? 'selected' : '') }} value="{{ $religion->id }}">{{ $religion->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="tongue_id">Tongue: <span class="text-danger">*</span></label>
+                                <select data-placeholder="Choose..." required name="tongue_id" id="tongue_id" class="select-search form-control">
+                                    <option value=""></option>
+                                    @foreach($tongues as $tongue)
+                                        <option {{ (old('tongue_id') == $tongue->id ? 'selected' : '') }} value="{{ $tongue->id }}">{{ $tongue->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
                             <label for="state_id">State: <span class="text-danger">*</span></label>
                             <select onchange="getLGA(this.value)" required data-placeholder="Choose.." class="select-search form-control" name="state_id" id="state_id">
                                 <option value=""></option>
@@ -152,8 +176,8 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="my_parent_id">Parent: </label>
-                                <select data-placeholder="Choose..."  name="my_parent_id" id="my_parent_id" class="select-search form-control">
+                                <label for="my_parent_id">Parent: <span class="text-danger">*</span></label>
+                                <select data-placeholder="Choose..." required  name="my_parent_id" id="my_parent_id" class="select-search form-control">
                                     <option  value=""></option>
                                     @foreach($parents as $p)
                                         <option {{ (old('my_parent_id') == Qs::hash($p->id)) ? 'selected' : '' }} value="{{ Qs::hash($p->id) }}">{{ $p->name }}</option>
@@ -167,9 +191,10 @@
                                 <label for="year_admitted">Year Admitted: <span class="text-danger">*</span></label>
                                 <select data-placeholder="Choose..." required name="year_admitted" id="year_admitted" class="select-search form-control">
                                     <option value=""></option>
-                                    @for($y=date('Y', strtotime('- 10 years')); $y<=date('Y'); $y++)
+                                    @for($y=date('Y'); $y>=date('Y', strtotime('- 10 years')); $y--)
                                         <option {{ (old('year_admitted') == $y) ? 'selected' : '' }} value="{{ $y }}">{{ $y }}</option>
                                     @endfor
+
                                 </select>
                             </div>
                         </div>
@@ -203,8 +228,8 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Admission Number:</label>
-                                <input type="text" name="adm_no" placeholder="Admission Number" class="form-control" value="{{ old('adm_no') }}">
+                                <label>Admission Number: <span class="text-danger">*</span></label>
+                                <input type="text" name="adm_no" required placeholder="Admission Number" class="form-control" value="{{ old('adm_no') }}">
                             </div>
                         </div>
                     </div>

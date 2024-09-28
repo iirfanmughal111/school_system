@@ -103,6 +103,20 @@
                                     <td>{{$sr->dorm->name.' '.$sr->dorm_room_no }}</td>
                                 </tr>
                             @endif
+                            @if($sr->user->religion_id)
+                                <tr>
+                                    
+                                    <td class="font-weight-bold">Religion</td>
+                                    <td>{{$sr->user->religion->name}}</td>
+                                </tr>
+                            @endif
+                            @if($sr->user->tongue_id)
+                            <tr>
+                                
+                                <td class="font-weight-bold">Tongue</td>
+                                <td>{{$sr->user->tongue->name}}</td>
+                            </tr>
+                        @endif
 
                             </tbody>
                         </table>

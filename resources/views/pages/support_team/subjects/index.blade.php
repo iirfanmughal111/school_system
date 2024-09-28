@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
                                     <label for="my_class_id" class="col-lg-3 col-form-label font-weight-semibold">Select Class <span class="text-danger">*</span></label>
                                     <div class="col-lg-9">
                                         <select required data-placeholder="Select Class" class="form-control select" name="my_class_id" id="my_class_id">
@@ -51,10 +51,10 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group row">
-                                    <label for="teacher_id" class="col-lg-3 col-form-label font-weight-semibold">Teacher <span class="text-danger">*</span></label>
+                                    <label for="teacher_id" class="col-lg-3 col-form-label font-weight-semibold">Head Teacher <span class="text-danger">*</span></label>
                                     <div class="col-lg-9">
                                         <select required data-placeholder="Select Teacher" class="form-control select-search" name="teacher_id" id="teacher_id">
                                             <option value=""></option>

@@ -15,6 +15,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Helpers\Qs;
 use App\Models\MediaFile;
+use App\Models\Tongue;
+use App\Models\Religion;
+
 
 class User extends Authenticatable
 {
@@ -26,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'phone', 'phone2', 'dob', 'gender', 'photo', 'address', 'bg_id', 'password', 'nal_id', 'state_id', 'lga_id', 'code', 'user_type', 'email_verified_at','institute_id'
+        'name', 'username', 'email', 'phone', 'phone2', 'dob','tongue_id','religion_id', 'gender', 'photo', 'address', 'bg_id', 'password', 'nal_id', 'state_id', 'lga_id', 'code', 'user_type', 'email_verified_at','institute_id'
     ];
 
     /**
@@ -89,7 +92,15 @@ class User extends Authenticatable
             }
         return Qs::getDefaultIcon($this->name);
     }
-   
+    public function tongue()
+    {
+        return $this->belongsTo(Tongue::class);
+    } 
+    public function religion()
+    {
+        return $this->belongsTo(Religion::class);
+    }
+    
  
      
 
