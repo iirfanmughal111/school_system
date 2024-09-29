@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('nal_id')->nullable();
             $table->string('address')->nullable();
             $table->integer('institute_id')->default(1);
+            $table->integer('campus_id')->default(0);
             $table->integer('is_active')->default(1);
             $table->integer('parent_id')->default(0);
             $table->timestamp('email_verified_at')->nullable();

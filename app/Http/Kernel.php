@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\Custom\Admin::class,
         'super_admin' => \App\Http\Middleware\Custom\SuperAdmin::class,
         'teamSA' => \App\Http\Middleware\Custom\TeamSA::class,
+        'ceo' => \App\Http\Middleware\Custom\TeamCEO::class,
         'teamSAT' => \App\Http\Middleware\Custom\TeamSAT::class,
         'teamAccount' => \App\Http\Middleware\Custom\TeamAccount::class,
         'examIsLocked' => \App\Http\Middleware\Custom\ExamIsLocked::class,

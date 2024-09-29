@@ -180,6 +180,7 @@ Route::group(['namespace' => 'SuperAdmin','middleware' => 'super_admin'], functi
 
     Route::resource('tongues', 'TongueController');
     Route::resource('religions', 'ReligionController');
+    Route::resource('campuses', 'CampusController');
     Route::get('/settings', 'SettingController@index')->name('settings');
     Route::put('/settings', 'SettingController@update')->name('settings.update');
 

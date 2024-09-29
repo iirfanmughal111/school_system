@@ -36,7 +36,7 @@
                             @foreach($tongues as $u)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $u->name }}</td>
+                                    <td>{{ $u->name }}  @if($u->is_active)<i class='icon-check'> </i>@endif </td>
                                     <td>{{ $u->code }}</td>
                                     <td class="text-center">
                                         <div class="list-icons">
@@ -49,11 +49,11 @@
                                                     
                                                     {{--Edit--}}
                                                     <a href="{{ route('tongues.edit', $u->id) }}" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
-                                                    {{-- Delete --}}
-                                                    <a id="{{ Qs::hash($u->id) }}" onclick="confirmDelete(this.id)" href="#" class="dropdown-item"><i class="icon-trash"></i> Delete</a>
-                                                    <form method="post" id="item-delete-{{ Qs::hash($u->id) }}" action="{{ route('tongues.destroy', Qs::hash($u->id)) }}" class="hidden">@csrf @method('delete')</form>
-                                          
-
+                                                    @if(Qs::userIsSuperAdmin())
+                                                        {{-- Delete --}}
+                                                        <a id="{{ Qs::hash($u->id) }}" onclick="confirmDelete(this.id)" href="#" class="dropdown-item"><i class="icon-trash"></i> Delete</a>
+                                                        <form method="post" id="item-delete-{{ Qs::hash($u->id) }}" action="{{ route('tongues.destroy', Qs::hash($u->id)) }}" class="hidden">@csrf @method('delete')</form>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

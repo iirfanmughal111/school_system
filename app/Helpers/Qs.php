@@ -92,7 +92,7 @@ class Qs
 
     public static function getUserRecord($remove = [])
     {
-        $data = ['name', 'email', 'phone', 'phone2', 'dob', 'gender', 'address', 'bg_id', 'nal_id', 'state_id', 'lga_id','region_id', 'tongue_id','religion_id'];
+        $data = ['name', 'email', 'phone', 'phone2', 'dob', 'gender', 'address', 'bg_id', 'nal_id', 'state_id', 'lga_id','region_id', 'tongue_id','religion_id','campus_id'];
 
         return $remove ? array_values(array_diff($data, $remove)) : $data;
     }
@@ -289,7 +289,7 @@ class Qs
     public static function getSetting($type,$institute_id=false)
     {
         $institute_id = $institute_id ? $institute_id : self::getInstituteId();
-        return Setting::where('institute_id',$institute_id)->where('type', $type)->first()->description;
+        $settings =  Setting::where('institute_id',$institute_id)->where('type', $type)->first();
         return $settings ? $settings->description : 'Settings missing';
     }
 

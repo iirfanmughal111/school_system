@@ -10,6 +10,7 @@ use App\Repositories\LocationRepo;
 use App\Repositories\MyClassRepo;
 use App\Repositories\StudentRepo;
 use App\Repositories\UserRepo;
+use App\Repositories\ConfigRepo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,9 +20,9 @@ use Illuminate\Support\Str;
 
 class StudentRecordController extends Controller
 {
-    protected $loc, $my_class, $user, $student;
+    protected $loc, $my_class, $user, $student,$config;
 
-   public function __construct(LocationRepo $loc, MyClassRepo $my_class, UserRepo $user, StudentRepo $student)
+   public function __construct(LocationRepo $loc, MyClassRepo $my_class, UserRepo $user, StudentRepo $student,ConfigRepo $config)
    {
        $this->middleware('teamSA', ['only' => ['edit','update', 'reset_pass', 'create', 'store', 'graduated'] ]);
        $this->middleware('super_admin', ['only' => ['destroy',] ]);
@@ -30,6 +31,7 @@ class StudentRecordController extends Controller
         $this->my_class = $my_class;
         $this->user = $user;
         $this->student = $student;
+        $this->config = $config;
    }
 
     public function reset_pass($st_id)
@@ -47,8 +49,9 @@ class StudentRecordController extends Controller
         $data['dorms'] = $this->student->getAllDorms();
         $data['states'] = $this->loc->getStates();
         $data['nationals'] = $this->loc->getAllNationals();
-        $data['religions'] = $this->user->getReligions()->where('is_active',1);
-        $data['tongues'] = $this->user->getTongues()->where('is_active',1);
+        $data['religions'] = $this->config->getReligions()->where('is_active',1);
+        $data['tongues'] = $this->config->getTongues()->where('is_active',1);
+        $data['campuses'] = $this->config->getCampuses()->where('is_active',1);
         return view('pages.support_team.students.add', $data);
     }
 
@@ -57,6 +60,7 @@ class StudentRecordController extends Controller
        $data =  $req->only(Qs::getUserRecord());
        $sr =  $req->only(Qs::getStudentData());
        $data['institute_id'] = Qs::getInstituteId();
+       $data['campus_id'] = Qs::decodeHash($data['campus_id']);
        $sr['institute_id'] = Qs::getInstituteId();
 
     //    dd($data,$sr);

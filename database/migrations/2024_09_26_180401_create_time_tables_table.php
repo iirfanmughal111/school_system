@@ -21,6 +21,7 @@ class CreateTimeTablesTable extends Migration
             $table->string('year', 100);
             $table->timestamps();
             $table->integer('institute_id')->default(1);
+            $table->integer('campus_id')->default(0);
             $table->tinyInteger('is_active')->default(1);
 
             $table->unique(['my_class_id', 'exam_id', 'year']);
@@ -40,6 +41,8 @@ class CreateTimeTablesTable extends Migration
             $table->string('timestamp_from', 50);
             $table->string('timestamp_to', 50);
             $table->string('full', 100);
+            $table->integer('institute_id')->default(1);
+            $table->integer('campus_id')->default(0);
             $table->timestamps();
 
             $table->unique(['timestamp_from', 'timestamp_to', 'ttr_id']);
@@ -56,6 +59,8 @@ class CreateTimeTablesTable extends Migration
             $table->string('timestamp_to', 100);
             $table->string('day', 50)->nullable();
             $table->tinyInteger('day_num')->nullable();
+            $table->integer('institute_id')->default(1);
+            $table->integer('campus_id')->default(0);
             $table->timestamps();
 
             $table->unique(['ttr_id', 'ts_id', 'day']);

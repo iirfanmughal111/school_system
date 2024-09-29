@@ -6,13 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Religion;
 use Illuminate\Http\Request;
 use App\Helpers\Qs;
+use App\Repositories\ConfigRepo;
 
 class ReligionController extends Controller
 {
+    protected $config;
+
+    public function __construct(ConfigRepo $config)
+    {
+        $this->middleware('teamSA', ['only' => ['edit','update','create', 'store'] ]);
+        $this->middleware('super_admin', ['only' => ['destroy',] ]);
+        $this->config = $config;
+    }
     // Display a listing of the resource
     public function index()
     {
-        $religions = Religion::all(); // Get all religions
+        $religions = $this->config->getReligions(); // Get all religions
         return view('pages/super_admin/religions/index', compact('religions'));
     }
 
@@ -30,14 +39,13 @@ class ReligionController extends Controller
             'name' => 'required',
             'code' => 'nullable',
             'is_active'=>'required',
-            // Add other validation rules as needed
         ]);
         if ($request->has('id') && $request->id > 0){
-           $religion = Religion::where('id', $request->id)->where('institute_id', Qs::getInstituteId())->update($data);
+           $religion = $this->config->updateReligion($request->id,$data);
         }
         else{
             $data['institute_id'] = Qs::getInstituteId();
-            Religion::create($data);
+            $this->config->createReligion($data);
         }
 
 
@@ -54,7 +62,9 @@ class ReligionController extends Controller
     // Show the form for editing the specified resource
     public function edit(Religion $religion)
     {
-        return view('pages/super_admin/tongs/edit', compact('religion'));
+        if ($religion->institute_id != auth()->user()->institute_id)
+            return back()->with('flash_success', __('msg.denied'));
+        return view('pages/super_admin/religions/edit', compact('religion'));
     }
 
     // Update the specified resource in storage
@@ -77,8 +87,8 @@ class ReligionController extends Controller
     public function destroy($id)
     {
         $id = Qs::decodeHash($id);
-        Religion::where('id',$id)->where('institute_id', Qs::getInstituteId())->delete();
-
+        $this->config->deleteReligion($id);
+        // Religion::where('id',$id)->where('institute_id', Qs::getInstituteId())->delete();
         return back()->with('flash_success', __('msg.del_ok'));
 
     }

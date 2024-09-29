@@ -33,6 +33,7 @@ class UserRequest extends FormRequest
             'state_id' => 'required',
             'lga_id' => 'required',
             'nal_id' => 'required',
+            'campus_id' => 'required',
         ];
         $update =  [
             'name' => 'required|string|min:6|max:150',
@@ -45,6 +46,8 @@ class UserRequest extends FormRequest
             'state_id' => 'required',
             'lga_id' => 'required',
             'nal_id' => 'required',
+            'campus_id' => 'required',
+
         ];
         return ($this->method() === 'POST') ? $store : $update;
     }
@@ -55,6 +58,7 @@ class UserRequest extends FormRequest
             'nal_id' => 'Nationality',
             'state_id' => 'State',
             'lga_id' => 'LGA',
+            'campus_id' => 'Campus',
             'user_type' => 'User',
             'phone2' => 'Telephone',
         ];

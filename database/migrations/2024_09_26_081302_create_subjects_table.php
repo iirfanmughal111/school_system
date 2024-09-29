@@ -24,9 +24,9 @@ class CreateSubjectsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('subjects', function (Blueprint $table) {
-            $table->unique(['my_class_id', 'name']);
-        });
+        // Schema::table('subjects', function (Blueprint $table) {
+        //     $table->unique(['my_class_id', 'name']);
+        // });
     }
 
     /**

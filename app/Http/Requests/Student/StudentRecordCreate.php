@@ -38,6 +38,7 @@ class StudentRecordCreate extends FormRequest
             'my_parent_id' => 'required|nullable',
             'tongue_id' => 'required|nullable',
             'religion_id' => 'required|nullable',
+            'campus_id' => 'required',
             'dorm_id' => 'sometimes|nullable',
         ];
     }
@@ -55,6 +56,8 @@ class StudentRecordCreate extends FormRequest
             'my_parent_id' => 'Parent',
             'tongue_id' => 'Tongue',
             'religion_id' => 'Religion',
+            'campus_id' => 'Campus',
+            'adm_no' => 'Admission Number',
         ];
     }
 

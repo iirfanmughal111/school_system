@@ -140,11 +140,8 @@
                     <li class="nav-item">
                         <a href="{{ route('users.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['users.index', 'users.show', 'users.edit']) ? 'active' : '' }}"><i class="icon-users4"></i> <span> Users</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('religions.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['religions.index']) ? 'active' : '' }}"><i class="icomoon icon-blog"></i><span> Religion</span></a>
-                    </li>  <li class="nav-item">
-                        <a href="{{ route('tongues.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['tongues.index']) ? 'active' : '' }}"><i class="icomoon icon-earth"></i><span> Tongue</span></a>
-                    </li>
+                   
+                    
                 @endif
                 
                 @if(Qs::userIsTeamSA())
@@ -153,6 +150,21 @@
                     <li class="nav-item">
                         <a href="{{ route('classes.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['classes.index','classes.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Classes</span></a>
                     </li>
+                     {{--Manage Campuses--}}
+
+                     <li class="nav-item">
+                        <a href="{{ route('campuses.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['campuses.index']) ? 'active' : '' }}"><i class="icomoon icon-dice"></i><span> Campuses</span></a>
+                    </li>  
+                    {{--Manage Religion--}}
+
+                    <li class="nav-item">
+                        <a href="{{ route('religions.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['religions.index']) ? 'active' : '' }}"><i class="icomoon icon-blog"></i><span> Religion</span></a>
+                    </li> 
+                    {{--Manage Tongue--}}
+                    <li class="nav-item">
+                        <a href="{{ route('tongues.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['tongues.index']) ? 'active' : '' }}"><i class="icomoon icon-earth"></i><span> Tongue</span></a>
+                    </li>
+                    
 
                     {{--Manage Dorms--}}
                     <li class="nav-item">

@@ -29,5 +29,9 @@ class DatabaseSeeder extends Seeder
         $this->call(StudentRecordsTableSeeder::class);
         $this->call(SkillsTableSeeder::class);
         $this->call(CitiesSeeder::class);
+        $this->call(InstituteSeeder::class);
+        $this->call(CampusesSeeder::class);
+        $this->call(TongueSeeder::class);
+        $this->call(ReligionSeeder::class);
     }
 }

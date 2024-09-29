@@ -45,6 +45,16 @@
                                 <input value="{{ $user->email }}" type="email" name="email" class="form-control" placeholder="your@email.com">
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="user_type"> Select Campus: <span class="text-danger">*</span></label>
+                                <select required data-placeholder="Select Campus" class="form-control select" name="campus_id" id="campus_id">
+                                    @foreach($campuses as $campus)
+                                        <option value="{{ Qs::hash($campus->id) }}">{{ $campus->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="col-md-4">
                             <div class="form-group">
@@ -53,26 +63,18 @@
                             </div>
                         </div>
 
+                     
+
+                    </div>
+
+                    <div class="row">
+                      
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Telephone:</label>
                                 <input value="{{ $user->phone2 }}" type="text" name="phone2" class="form-control" placeholder="" >
                             </div>
                         </div>
-
-                    </div>
-
-                    <div class="row">
-                        @if(in_array($user->user_type, Qs::getStaff()))
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Date of Employment:</label>
-                                    <input autocomplete="off" name="emp_date" value="{{ $user->staff->first()->emp_date ?? '' }}" type="text" class="form-control date-pick" placeholder="Select Date...">
-
-                                </div>
-                            </div>
-                        @endif
-
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="gender">Gender: <span class="text-danger">*</span></label>
@@ -131,6 +133,15 @@
 
                     {{--Passport--}}
                     <div class="row">
+                        @if(in_array($user->user_type, Qs::getStaff()))
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Date of Employment:</label>
+                                <input autocomplete="off" name="emp_date" value="{{ $user->staff->first()->emp_date ?? '' }}" type="text" class="form-control date-pick" placeholder="Select Date...">
+
+                            </div>
+                        </div>
+                    @endif
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="d-block">Upload Passport Photo:</label>

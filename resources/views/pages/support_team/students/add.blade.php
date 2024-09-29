@@ -35,6 +35,16 @@
                                 <input type="email" value="{{ old('email') }}" name="email" class="form-control" placeholder="Email Address">
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="user_type"> Select Campus: <span class="text-danger">*</span></label>
+                                <select required data-placeholder="Select Campus" class="form-control select" name="campus_id" id="campus_id">
+                                    @foreach($campuses as $campus)
+                                        <option value="{{ Qs::hash($campus->id) }}">{{ $campus->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="col-md-3">
                             <div class="form-group">
@@ -54,12 +64,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Telephone:</label>
-                                <input value="{{ old('phone2') }}" type="text" name="phone2" class="form-control" placeholder="" >
-                            </div>
-                        </div>
+                       
 
                     </div>
 
@@ -107,8 +112,13 @@
                                 </select>
                             </div>
                         </div>
-                        
-                        <div class="col-md-3">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Telephone:</label>
+                                <input value="{{ old('phone2') }}" type="text" name="phone2" class="form-control" placeholder="" >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <label for="state_id">State: <span class="text-danger">*</span></label>
                             <select onchange="getLGA(this.value)" required data-placeholder="Choose.." class="select-search form-control" name="state_id" id="state_id">
                                 <option value=""></option>
@@ -118,7 +128,7 @@
                             </select>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label for="lga_id">LGA: <span class="text-danger">*</span></label>
                             <select required data-placeholder="Select State First" class="select-search form-control" name="lga_id" id="lga_id">
                                 <option value=""></option>

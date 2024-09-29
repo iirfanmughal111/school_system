@@ -15,7 +15,7 @@ class InstitutesController extends Controller
     protected $user, $loc, $my_class,$institutes;
     public function __construct(UserRepo $user, LocationRepo $loc, MyClassRepo $my_class,InstitutesRepo $institutes)
     {
-        $this->middleware('teamSA', ['only' => ['index', 'store', 'edit', 'update'] ]);
+        $this->middleware('ceo', ['only' => ['index', 'store', 'edit', 'update'] ]);
         $this->middleware('super_admin', ['only' => ['reset_pass','destroy'] ]);
 
         $this->user = $user;
@@ -31,11 +31,10 @@ class InstitutesController extends Controller
      */
     public function index()
     {
-
-        $d['states'] = $this->loc->getStates();
         $d['institutes'] = $this->institutes->getAll();
         $d['users'] = $this->user->getSuperNewAdmin();
         $d['nationals'] = $this->loc->getAllNationals();
+        $d['states'] = $this->loc->getStates();
         return view('pages/ceo/institute.index', $d);
     }
 

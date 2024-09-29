@@ -95,6 +95,27 @@
                                     </tr>
                                 @endif
 
+                                @if($user->campus_id)
+                                <tr>
+                                    <td class="font-weight-bold">Campus</td>
+                                    <td>
+                                      {{ $user->campus->name }} - 
+                                      <small>{{ $user->campus->address }} - {{ $user->campus->contact }}</small>
+                                    </td>
+                                </tr>
+                                @endif
+                                @if($user->tongue_id)
+                                    <tr>
+                                        <td class="font-weight-bold">Tongue</td>
+                                        <td>{{$user->tongue->name }}</td>
+                                    </tr>
+                                @endif
+                                @if($user->religion_id)
+                                    <tr>
+                                        <td class="font-weight-bold">Religion</td>
+                                        <td>{{$user->religion->name }}</td>
+                                    </tr>
+                                @endif
                                 @if($user->user_type == 'teacher')
                                     <tr>
                                         <td class="font-weight-bold">My Subjects</td>

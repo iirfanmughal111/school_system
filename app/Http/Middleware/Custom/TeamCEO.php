@@ -6,7 +6,7 @@ use Closure;
 use App\Helpers\Qs;
 use Illuminate\Support\Facades\Auth;
 
-class TeamSA
+class TeamCEO
 {
     /**
      * Handle an incoming request.
@@ -17,6 +17,6 @@ class TeamSA
      */
     public function handle($request, Closure $next)
     {
-        return (Auth::check() && (Qs::userIsTeamSA() || Qs::userIsCEO())) ? $next($request) : redirect()->route('login');
+        return (Auth::check() && Qs::userIsCEO()) ? $next($request) : redirect()->route('login');
     }
 }

@@ -6,13 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Models\Tongue;
 use Illuminate\Http\Request;
 use App\Helpers\Qs;
+use App\Repositories\ConfigRepo;
 
 class TongueController extends Controller
 {
+    protected $config;
+
+    public function __construct(ConfigRepo $config)
+    {
+        $this->middleware('teamSA', ['only' => ['edit','update','create', 'store'] ]);
+        $this->middleware('super_admin', ['only' => ['destroy',] ]);
+        $this->config = $config;
+    }
+
     // Display a listing of the resource
     public function index()
     {
-        $tongues = Tongue::all(); // Get all tongues
+        $tongues = $this->config->getTongues(); // Get all tongues
         return view('pages/super_admin/tongs/index', compact('tongues'));
     }
 
@@ -30,15 +40,13 @@ class TongueController extends Controller
             'name' => 'required',
             'code' => 'nullable',
             'is_active'=>'required',
-            // Add other validation rules as needed
         ]);
         if ($request->has('id') && $request->id > 0){
-           $tongue = Tongue::where('id', $request->id)->where('institute_id', Qs::getInstituteId())->update($data);
+           $tongue = $this->config->updateTongue($request->id,$data);
         }
         else{
-        $data['institute_id'] = Qs::getInstituteId();
-
-            Tongue::create($data);
+            $data['institute_id'] = Qs::getInstituteId();
+            $this->config->createTongue($data);
         }
 
 
@@ -55,6 +63,8 @@ class TongueController extends Controller
     // Show the form for editing the specified resource
     public function edit(Tongue $tongue)
     {
+        if ($tongue->institute_id != auth()->user()->institute_id)
+            return back()->with('flash_success', __('msg.denied'));
         return view('pages/super_admin/tongs/edit', compact('tongue'));
     }
 
@@ -66,7 +76,6 @@ class TongueController extends Controller
         $request->validate([
             'name' => 'required',
             'code' => 'nullable',
-            // Add other validation rules as needed
         ]);
 
         $tongue->update($request->all());
@@ -78,11 +87,9 @@ class TongueController extends Controller
     public function destroy($id)
     {
         $id = Qs::decodeHash($id);
-        Tongue::whereId($id)->delete();
-
+        $this->config->deleteTongue($id);
+        // Tongue::whereId($id)->delete();
         return back()->with('flash_success', __('msg.del_ok'));
-        // $tongue->delete();
 
-        // return redirect()->route('tongues.index')->with('success', 'Tongue deleted successfully.');
     }
 }

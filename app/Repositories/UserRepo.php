@@ -63,6 +63,11 @@ class UserRepo {
         return User::where('institute_id',Qs::getInstituteId())->where('user_type', '<>', 'student')->orderBy('name', 'asc')->get();
     }
 
+    public function getCEOPTAUsers()
+    {
+        return User::where('user_type', '<>', 'student')->orderBy('name', 'asc')->get();
+    }
+
     /********** STAFF RECORD ********/
     public function createStaffRecord($data)
     {
@@ -79,13 +84,5 @@ class UserRepo {
     {
         return BloodGroup::orderBy('name')->get();
     }
-    
-    public function getReligions()
-    {
-        return Religion::where('institute_id',Qs::getInstituteId())->orderBy('name')->get();
-    }
-    public function getTongues()
-    {
-        return Tongue::where('institute_id',Qs::getInstituteId())->orderBy('name')->get();
-    }
+
 }

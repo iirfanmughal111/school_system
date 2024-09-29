@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Repositories\LocationRepo;
 use App\Repositories\MyClassRepo;
 use App\Repositories\UserRepo;
+use App\Repositories\ConfigRepo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,16 +18,17 @@ use  App\Models\MediaFile;
 
 class UserController extends Controller
 {
-    protected $user, $loc, $my_class;
+    protected $user, $loc, $my_class,$config;
 
-    public function __construct(UserRepo $user, LocationRepo $loc, MyClassRepo $my_class)
+    public function __construct(UserRepo $user, LocationRepo $loc, MyClassRepo $my_class,ConfigRepo $config)
     {
-        $this->middleware('teamSA', ['only' => ['index', 'store', 'edit', 'update'] ]);
+        $this->middleware(['teamSA'], ['only' => ['index', 'store', 'edit', 'update'] ]);
         $this->middleware('super_admin', ['only' => ['reset_pass','destroy'] ]);
 
         $this->user = $user;
         $this->loc = $loc;
         $this->my_class = $my_class;
+        $this->config = $config;
     }
 
     public function index()
@@ -38,9 +40,18 @@ class UserController extends Controller
 
         $d['user_types'] = Qs::userIsCEO() ? $ut3 : $ut2;
         $d['states'] = $this->loc->getStates();
+        
+        if (Qs::userIsCEO())
+        $d['users'] = $this->user->getCEOPTAUsers();
+        else
         $d['users'] = $this->user->getPTAUsers();
+        // dd($d);
+
         $d['nationals'] = $this->loc->getAllNationals();
         $d['blood_groups'] = $this->user->getBloodGroups();
+        $d['campuses'] = $this->config->getInstituteCampueses();
+        $d['tongues'] = $this->config->getTongues()->where('is_active',1);
+        $d['religions'] = $this->config->getReligions()->where('is_active',1);
         return view('pages.support_team.users.index', $d);
     }
 
@@ -52,6 +63,9 @@ class UserController extends Controller
         $d['users'] = $this->user->getPTAUsers();
         $d['blood_groups'] = $this->user->getBloodGroups();
         $d['nationals'] = $this->loc->getAllNationals();
+        $d['campuses'] = $this->config->getInstituteCampueses();
+        $d['tongues'] = $this->config->getTongues();
+        $d['religions'] = $this->config->getReligions();
         return view('pages.support_team.users.edit', $d);
     }
 
@@ -93,6 +107,7 @@ class UserController extends Controller
             return back()->with('pop_error', __('msg.user_invalid'));
         }
         $data['institute_id'] = Qs::getInstituteId();
+        $data['campus_id'] = Qs::decodeHash( $data['campus_id']);
         // dd($data);
         $user = $this->user->create($data); // Create User
        
@@ -124,6 +139,7 @@ class UserController extends Controller
 
     public function update(UserRequest $req, $id)
     {
+        // dd($req->all());
         $id = Qs::decodeHash($id);
 
         // Redirect if Making Changes to Head of Super Admins
@@ -148,6 +164,7 @@ class UserController extends Controller
             $data['username'] = $user->username;
         }
         $data['institute_id'] = Qs::getInstituteId();
+        $data['campus_id'] = Qs::decodeHash( $data['campus_id']);
 
         if($req->hasFile('photo')) {
             $photo = $req->file('photo');
