@@ -15,6 +15,12 @@ class CampusClass extends Model
         'is_active',
         'institute_id',
     ];
+    public function campus()
+    {
+        return $this->belongsTo(Campus::class)->withDefault([
+            'name' => 'Unknown',
+        ]);
+    } 
 
 }
 

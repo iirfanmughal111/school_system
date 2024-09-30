@@ -16,5 +16,12 @@ class SubjectClass extends Model
         'institute_id',
     ];
 
+    public function classes(){
+        return $this->hasMany(MyClass::class);
+    }
+    public function subject(){
+        return $this->hasMany(Subject::class);
+    }
+
 }
 

@@ -95,15 +95,21 @@ class User extends Authenticatable
     }
     public function tongue()
     {
-        return $this->belongsTo(Tongue::class);
+        return $this->belongsTo(Tongue::class)->withDefault([
+            'name' => 'Unknown',
+        ]);
     } 
     public function religion()
     {
-        return $this->belongsTo(Religion::class);
+        return $this->belongsTo(Religion::class)->withDefault([
+            'name' => 'Unknown',
+        ]);
     }
     public function campus()
     {
-        return $this->belongsTo(Campus::class);
+        return $this->belongsTo(Campus::class)->withDefault([
+            'name' => 'Unknown',
+        ]);
     }
     
 

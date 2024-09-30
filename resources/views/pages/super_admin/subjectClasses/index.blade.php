@@ -22,7 +22,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <th>Subject</th>
-                                        <th colspan="{{ count($classes) }}">Classes</th>
+                                        <th class="text-center"  colspan="{{ count($classes) }}">Classes</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($subjects as $sub)

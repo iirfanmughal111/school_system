@@ -62,7 +62,7 @@
                         <ul class="nav nav-group-sub" data-submenu-title="Manage Academics">
 
                         {{--Timetables--}}
-                            <li class="nav-item"><a href="{{ route('tt.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['tt.index']) ? 'active' : '' }}">Timetables</a></li>
+                            <li class="nav-item"><a href="{{ route('tt.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['tt.index']) ? 'active' : '' }}"><i class="icomoon icon-calendar"></i> Timetables</a></li>
                         </ul>
                     </li>
                 @endif
@@ -78,7 +78,7 @@
                             @if(Qs::userIsTeamAccount())
                             <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['payments.index', 'payments.create', 'payments.edit', 'payments.manage', 'payments.show', 'payments.invoice']) ? 'nav-item-expanded' : '' }}">
 
-                                <a href="#" class="nav-link {{ in_array(Route::currentRouteName(), ['payments.index', 'payments.edit', 'payments.create', 'payments.manage', 'payments.show', 'payments.invoice']) ? 'active' : '' }}">Payments</a>
+                                <a href="#" class="nav-link {{ in_array(Route::currentRouteName(), ['payments.index', 'payments.edit', 'payments.create', 'payments.manage', 'payments.show', 'payments.invoice']) ? 'active' : '' }}"> Payments</a>
 
                                 <ul class="nav nav-group-sub">
                                     <li class="nav-item"><a href="{{ route('payments.create') }}" class="nav-link {{ Route::is('payments.create') ? 'active' : '' }}">Create Payment</a></li>
@@ -140,32 +140,63 @@
                     <li class="nav-item">
                         <a href="{{ route('users.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['users.index', 'users.show', 'users.edit']) ? 'active' : '' }}"><i class="icon-users4"></i> <span> Users</span></a>
                     </li>
-                   
-                    
+
+                    <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['classes.index','classes.edit', 'campusclasses.index', 'sections.edit', 'sections.index', 'subjects.index','subjects.edit']) ? 'nav-item-expanded nav-item-open' : '' }} ">
+                        <a href="#" class="nav-link"><i class=" icomoon icon-windows2"></i> <span> Classes</span></a>
+    
+                        <ul class="nav nav-group-sub" data-submenu-title="Manage Config">
+                              {{--Manage Classes--}}
+                            <li class="nav-item">
+                                <a href="{{ route('classes.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['classes.index','classes.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Classes</span></a>
+                            </li>
+                       
+                            {{--Manage Campus Classes--}}
+
+                            <li class="nav-item">
+                                <a href="{{ route('campusclasses.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['campusclasses.index']) ? 'active' : '' }}"><i class="icomoon icon-dice"></i><span> Campus Classes</span></a>
+                            </li> 
+                            
+                            {{--Manage Sections--}}
+                            <li class="nav-item">
+                                <a href="{{ route('sections.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['sections.index','sections.edit',]) ? 'active' : '' }}"><i class="icon-fence"></i> <span>Sections</span></a>
+                            </li>
+
+                               {{--Manage Subjects--}}
+                                <li class="nav-item">
+                                    <a href="{{ route('subjects.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['subjects.index','subjects.edit',]) ? 'active' : '' }}"><i class="icon-pin"></i> <span>Subjects</span></a>
+                                </li>
+                            {{--Manage Subjects Classes--}}
+
+                            <li class="nav-item">
+                                <a href="{{ route('subjectclasses.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['subjectclasses.index']) ? 'active' : '' }}"><i class="icomoon icon-book"></i><span> Class Subjects</span></a>
+                            </li>
+            
+                        </ul>
+                    </li>
+
+
+                    {{--Manage Dorms--}}
+                    <li class="nav-item">
+                        <a href="{{ route('dorms.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['dorms.index','dorms.edit']) ? 'active' : '' }}"><i class="icon-home9"></i> <span> Dormitories</span></a>
+                    </li>
                 @endif
                 
                 @if(Qs::userIsTeamSA())
-                 
-                    {{--Manage Classes--}}
-                    <li class="nav-item">
-                        <a href="{{ route('classes.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['classes.index','classes.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Classes</span></a>
-                    </li>
-                     {{--Manage Campuses--}}
+
+                    <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['campuses.index',  'religions.index',  'tongues.index']) ? 'nav-item-expanded nav-item-open' : '' }} ">
+                        <a href="#" class="nav-link"><i class=" icomoon icon-wrench"></i> <span> Configuration</span></a>
+    
+                        <ul class="nav nav-group-sub" data-submenu-title="Manage Config">
+                            
+                         {{--Manage Campuses--}}
 
                      <li class="nav-item">
                         <a href="{{ route('campuses.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['campuses.index']) ? 'active' : '' }}"><i class="icomoon icon-power-cord"></i><span> Campuses</span></a>
                     </li>  
-                     {{--Manage Campus Classes--}}
-
-                    <li class="nav-item">
-                        <a href="{{ route('campusclasses.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['campusclasses.index']) ? 'active' : '' }}"><i class="icomoon icon-dice"></i><span> Campus Classes</span></a>
-                    </li> 
                     
-                     {{--Manage Campus Classes--}}
 
-                     <li class="nav-item">
-                        <a href="{{ route('subjectclasses.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['subjectclasses.index']) ? 'active' : '' }}"><i class="icomoon icon-book"></i><span> Class Subjects</span></a>
-                    </li>
+
+                
                     {{--Manage Religion--}}
 
                     <li class="nav-item">
@@ -177,22 +208,13 @@
                     </li>
                     
 
-                    {{--Manage Dorms--}}
-                    <li class="nav-item">
-                        <a href="{{ route('dorms.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['dorms.index','dorms.edit']) ? 'active' : '' }}"><i class="icon-home9"></i> <span> Dormitories</span></a>
+
+
+                        </ul>
                     </li>
 
-                    {{--Manage Sections--}}
-                    <li class="nav-item">
-                        <a href="{{ route('sections.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['sections.index','sections.edit',]) ? 'active' : '' }}"><i class="icon-fence"></i> <span>Sections</span></a>
-                    </li>
-
-                    {{--Manage Subjects--}}
-                    <li class="nav-item">
-                        <a href="{{ route('subjects.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['subjects.index','subjects.edit',]) ? 'active' : '' }}"><i class="icon-pin"></i> <span>Subjects</span></a>
-                    </li>
                 @endif
-
+                    
                 {{--Exam--}}
                 @if(Qs::userIsTeamSAT())
                 <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['exams.index', 'exams.edit', 'grades.index', 'grades.edit', 'marks.index', 'marks.manage', 'marks.bulk', 'marks.tabulation', 'marks.show', 'marks.batch_fix',]) ? 'nav-item-expanded nav-item-open' : '' }} ">

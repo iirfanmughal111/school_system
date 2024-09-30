@@ -86,37 +86,39 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($subjects->where('my_class.id', $c->id) as $s)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $s->name }} </td>
-                                    <td>{{ $s->slug }} </td>
-                                    <td>{{ $s->my_class->name }}</td>
-                                    <td>{{ $s->teacher->name }}</td>
-                                    <td class="text-center">
-                                        <div class="list-icons">
-                                            <div class="dropdown">
-                                                <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
+                                @if(isset($subjects[$c->id]))
+                                    @foreach($subjects[$c->id] as $s)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $s->name }} </td>
+                                            <td>{{ $s->slug }} </td>
+                                            <td>{{ $c->name }}</td>
+                                            <td>{{ $s->teacher->name }}</td>
+                                            <td class="text-center">
+                                                <div class="list-icons">
+                                                    <div class="dropdown">
+                                                        <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                                            <i class="icon-menu9"></i>
+                                                        </a>
 
-                                                <div class="dropdown-menu dropdown-menu-left">
-                                                    {{--edit--}}
-                                                    @if(Qs::userIsTeamSA())
-                                                        <a href="{{ route('subjects.edit', $s->id) }}" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
-                                                    @endif
-                                                    {{--Delete--}}
-                                                    @if(Qs::userIsSuperAdmin())
-                                                        <a id="{{ $s->id }}" onclick="confirmDelete(this.id)" href="#" class="dropdown-item"><i class="icon-trash"></i> Delete</a>
-                                                        <form method="post" id="item-delete-{{ $s->id }}" action="{{ route('subjects.destroy', $s->id) }}" class="hidden">@csrf @method('delete')</form>
-                                                    @endif
+                                                        <div class="dropdown-menu dropdown-menu-left">
+                                                            {{--edit--}}
+                                                            @if(Qs::userIsTeamSA())
+                                                                <a href="{{ route('subjects.edit', $s->id) }}" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
+                                                            @endif
+                                                            {{--Delete--}}
+                                                            @if(Qs::userIsSuperAdmin())
+                                                                <a id="{{ $s->id }}" onclick="confirmDelete(this.id)" href="#" class="dropdown-item"><i class="icon-trash"></i> Delete</a>
+                                                                <form method="post" id="item-delete-{{ $s->id }}" action="{{ route('subjects.destroy', $s->id) }}" class="hidden">@csrf @method('delete')</form>
+                                                            @endif
 
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                            </td>
+                                        </tr>
+                                    @endforeach 
+                                @endif
                             </tbody>
                         </table>
                     </div>

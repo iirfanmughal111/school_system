@@ -27,11 +27,11 @@
                         <thead>
                         <tr>
                             <th>S/N</th>
-                            <th>Photo</th>
                             <th>Name</th>
-                            <th>ADM_No</th>
+                            {{-- <th>ADM_No</th> --}}
                             <th>Section</th>
                             <th>Email</th>
+                            <th>Campus</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -39,11 +39,14 @@
                         @foreach($students as $s)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td><img class="rounded-circle" style="height: 40px; width: 40px;" src="{{ $s->user->getAvatar() }}" alt="photo"></td>
-                                <td>{{ $s->user->name }}  @if($s->is_active)<i class='icon-check'> </i>@endif</td>
-                                <td>{{ $s->adm_no }}</td>
+                                <td class="p-0"><img class="rounded-circle" style="height: 40px; width: 40px;" src="{{ $s->user->getAvatar() }}" alt="photo">
+                                @if($s->is_active)<i class='icon-check'> </i>@endif {{ $s->user->name }} </td>
+                                {{-- <td></td> --}}
                                 <td>{{ $my_class->name.' '.$s->section->name }}</td>
-                                <td>{{ $s->user->email }}</td>
+                                <td>{{ $s->user->email }} <br>
+                                  <small>{{ $s->adm_no }}</small>  
+                                </td>
+                                <td>{{ $s->user->campus->name }}</td>
                                 <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">

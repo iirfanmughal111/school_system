@@ -22,7 +22,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <th>Classes</th>
-                                        <th colspan="{{ count($campuses) }}">Campuses</th>
+                                        <th class="text-center" colspan="{{ count($campuses) }}">Campuses</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($classes as $class)

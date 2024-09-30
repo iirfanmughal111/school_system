@@ -11,11 +11,15 @@ class Subject extends Eloquent
 
     public function my_class()
     {
-        return $this->belongsTo(MyClass::class);
+        return $this->belongsTo(MyClass::class)->withDefault([
+            'name' => 'Unknown',
+        ]);;
     }
 
     public function teacher()
     {
-        return $this->belongsTo(User::class, 'teacher_id');
+        return $this->belongsTo(User::class, 'teacher_id')->withDefault([
+            'name' => 'Unknown',
+        ]);
     }
 }

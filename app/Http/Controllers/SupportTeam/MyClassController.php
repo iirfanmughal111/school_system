@@ -7,19 +7,21 @@ use App\Http\Requests\MyClass\ClassCreate;
 use App\Http\Requests\MyClass\ClassUpdate;
 use App\Repositories\MyClassRepo;
 use App\Repositories\UserRepo;
+use App\Repositories\ConfigRepo;
 use App\Http\Controllers\Controller;
 
 class MyClassController extends Controller
 {
-    protected $my_class, $user;
+    protected $my_class, $user,$config;
 
-    public function __construct(MyClassRepo $my_class, UserRepo $user)
+    public function __construct(MyClassRepo $my_class, UserRepo $user,ConfigRepo $config)
     {
         $this->middleware('teamSA', ['except' => ['destroy',] ]);
         $this->middleware('super_admin', ['only' => ['destroy',] ]);
 
         $this->my_class = $my_class;
         $this->user = $user;
+        $this->config = $config;
     }
 
     public function index()
@@ -27,6 +29,14 @@ class MyClassController extends Controller
         $d['my_classes'] = $this->my_class->all();
         $d['class_types'] = $this->my_class->getTypes();
 
+        $d['campusclasses'] = $this->config->getCampusClasses()->where('is_active',1);
+        $classes = array_unique($d['campusclasses']->pluck('my_class_id')->toArray());
+        $selected = [];
+        foreach($classes as $c){
+            $selected[$c] =  $d['campusclasses']->where('my_class_id',$c)->pluck('campus_id')->toArray();
+        }
+        // dd($selected);
+        $d['selected'] = $selected;
         return view('pages.support_team.classes.index', $d);
     }
 

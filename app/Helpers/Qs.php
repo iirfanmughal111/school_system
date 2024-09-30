@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Models\Setting;
 use App\Models\StudentRecord;
 use App\Models\Subject;
+use App\Models\Campus;
 use Hashids\Hashids;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -414,6 +415,11 @@ class Qs
     public static function getDefaultIcon($name){
         return 'https://ui-avatars.com/api/?background='.self::random_dark_color().'&color='.self::random_light_color().'&size=128&bold=true&name='.$name.'&rounded=true';
     }   
+
+    public static function getCamppusById($id)
+    {
+        return Campus::where('institute_id',self::getInstituteId())->where('id',$id)->first();
+    }
           
 
 }

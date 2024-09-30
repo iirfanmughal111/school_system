@@ -121,6 +121,18 @@
                                         </select>
                                     </div>
                                 </div>
+                                
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="tongue_id">Tongue: <span class="text-danger">*</span></label>
+                                        <select data-placeholder="Choose..." required name="tongue_id" id="tongue_id" class="select-search form-control">
+                                            <option value=""></option>
+                                            @foreach($tongues as $tongue)
+                                                <option {{ (old('tongue_id') == $tongue->id ? 'selected' : '') }} value="{{ $tongue->id }}">{{ $tongue->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -154,17 +166,6 @@
                                     </div>
                                 </div>
         
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="tongue_id">Tongue: <span class="text-danger">*</span></label>
-                                        <select data-placeholder="Choose..." required name="tongue_id" id="tongue_id" class="select-search form-control">
-                                            <option value=""></option>
-                                            @foreach($tongues as $tongue)
-                                                <option {{ (old('tongue_id') == $tongue->id ? 'selected' : '') }} value="{{ $tongue->id }}">{{ $tongue->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="row">
@@ -223,10 +224,10 @@
                             <thead>
                             <tr>
                                 <th>S/N</th>
-                                <th>Photo</th>
                                 <th>Name</th>
                                 <th>Username</th>
                                 <th>Phone</th>
+                                <th>Campus</th>
                                 <th>Email</th>
                                 <th>Action</th>
                             </tr>
@@ -235,10 +236,12 @@
                             @foreach($users->where('user_type', $ut->title) as $u)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td><img class="rounded-circle" style="height: 40px; width: 40px;" src="{{ $u->getAvatar() }}" alt="photo"></td>
-                                    <td>{{ $u->name }}  @if($u->is_active)<i class='icon-check'> </i>@endif</td>
+                                    <td class="p-0 ">
+                                        <img class="rounded-circle" style="height: 40px; width: 40px;" src="{{ $u->getAvatar() }}" alt="photo">
+                                        @if($u->is_active)<i class='icon-check'> </i>@endif  {{ $u->name }} </td>
                                     <td>{{ $u->username }}</td>
                                     <td>{{ $u->phone }}</td>
+                                    <td>{{ $u->campus->name }}</td>
                                     <td>{{ $u->email }}</td>
                                     <td class="text-center">
                                         <div class="list-icons">

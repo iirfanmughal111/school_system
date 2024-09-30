@@ -22,15 +22,27 @@
                                 <th>S/N</th>
                                 <th>Name</th>
                                 <th>Class Type</th>
+                                <th>Campus</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($my_classes as $c)
+                            @php
+                             $checked = '';
+                             $index = $c->id;
+                                if (isset($selected[$c->id])) {
+                                    $campuses = '';
+                                    foreach ($selected[$c->id] as $key => $value)
+                                        $campuses .= Qs::getCamppusById($value)->name.', ';
+                                    $campuses = rtrim($campuses, ', ');
+                                }   
+                            @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $c->name }}</td>
+                                    <td> {{ $c->name }}</td>
                                     <td>{{ $c->class_type->name }}</td>
+                                    <td>{{ $campuses }}</td>
                                     <td class="text-center">
                                         <div class="list-icons">
                                             <div class="dropdown">
