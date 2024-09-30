@@ -29,10 +29,8 @@
                             <tbody>
                             @foreach($my_classes as $c)
                             @php
-                             $checked = '';
-                             $index = $c->id;
+                            $campuses = '';
                                 if (isset($selected[$c->id])) {
-                                    $campuses = '';
                                     foreach ($selected[$c->id] as $key => $value)
                                         $campuses .= Qs::getCamppusById($value)->name.', ';
                                     $campuses = rtrim($campuses, ', ');
