@@ -92,7 +92,7 @@ class Qs
 
     public static function getUserRecord($remove = [])
     {
-        $data = ['name', 'email', 'phone', 'phone2', 'dob', 'gender', 'address', 'bg_id', 'nal_id', 'state_id', 'lga_id','region_id', 'tongue_id','religion_id','campus_id'];
+        $data = ['name', 'email','is_active', 'phone', 'phone2', 'dob', 'gender', 'address', 'bg_id', 'nal_id', 'state_id', 'lga_id','region_id', 'tongue_id','religion_id','campus_id'];
 
         return $remove ? array_values(array_diff($data, $remove)) : $data;
     }

@@ -122,7 +122,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="nal_id">Nationality: <span class="text-danger">*</span></label>
                                         <select data-placeholder="Choose..." required name="nal_id" id="nal_id" class="select-search form-control">
@@ -133,7 +133,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="nal_id">Religion: <span class="text-danger">*</span></label>
                                         <select data-placeholder="Choose..." required name="religion_id" id="religion_id" class="select-search form-control">
@@ -141,6 +141,15 @@
                                             @foreach($religions as $religion)
                                                 <option {{ (old('religion_id') == $religion->id ? 'selected' : '') }} value="{{ $religion->id }}">{{ $religion->name }}</option>
                                             @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="nal_id">Status: <span class="text-danger">*</span></label>
+                                        <select data-placeholder="Choose..." required name="is_active" id="is_active" class="select-search form-control">
+                                            <option  {{ (old('is_active') == '1') ? 'selected' : '' }} value="1">Active</option>
+                                            <option {{ (old('is_active') == '0') ? 'selected' : '' }} value="0">Disablled</option>
                                         </select>
                                     </div>
                                 </div>

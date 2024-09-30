@@ -20,5 +20,8 @@ class Campus extends Model
         'est_date',
         'institute_id',
     ];
+    public function classes(){
+        return $this->hasMany(MyClass::class);
+    }
 }
 

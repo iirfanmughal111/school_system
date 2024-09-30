@@ -40,7 +40,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td><img class="rounded-circle" style="height: 40px; width: 40px;" src="{{ $s->user->getAvatar() }}" alt="photo"></td>
-                                <td>{{ $s->user->name }}</td>
+                                <td>{{ $s->user->name }}  @if($s->is_active)<i class='icon-check'> </i>@endif</td>
                                 <td>{{ $s->adm_no }}</td>
                                 <td>{{ $my_class->name.' '.$s->section->name }}</td>
                                 <td>{{ $s->user->email }}</td>

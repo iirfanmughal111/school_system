@@ -32,7 +32,7 @@ class CreateFks extends Migration
 
         Schema::table('subjects', function (Blueprint $table) {
             $table->foreign('teacher_id')->references('id')->on('users');
-            $table->foreign('my_class_id')->references('id')->on('my_classes')->onDelete('cascade');
+            // $table->foreign('my_class_id')->references('id')->on('my_classes')->onDelete('cascade');
         });
 
         Schema::table('student_records', function (Blueprint $table) {

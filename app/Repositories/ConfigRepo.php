@@ -10,6 +10,8 @@ use App\Helpers\Qs;
 use App\Models\Religion;
 use App\Models\Tongue;
 use App\Models\Campus;
+use App\Models\CampusClass;
+use App\Models\SubjectClass;
 
 class ConfigRepo {
 
@@ -94,6 +96,65 @@ class ConfigRepo {
          return Campus::where('institute_id',Qs::getInstituteId())->get();
      }
 
+
+     /********** CAMPUSES CLASSES********/
+     public function getCampusClasses()
+     {
+         return CampusClass::where('institute_id',Qs::getInstituteId())->get();
+     }
+ 
+     public function updateCampusClass($id, $data)
+     {
+         return CampusClass::where('institute_id',Qs::getInstituteId())->find($id)->update($data);
+     }
+ 
+     public function createCampusClass($data)
+     {
+         return CampusClass::create($data);
+     }
+     public function deleteCampusClass($id)
+     {
+         return CampusClass::where('institute_id',Qs::getInstituteId())->where('id',$id)->delete();
+     }
+     public function deleteCampusClassByClass($class_id)
+     {
+         return CampusClass::where('institute_id',Qs::getInstituteId())->where('my_class_id',$class_id)->delete();
+
+     }
+ 
+     public function findCampusClass($id)
+     {
+         return CampusClass::where('institute_id',Qs::getInstituteId())->find($id);
+     }
+
+    /********** CAMPUSES CLASSES********/
+    public function getSubjectClasses()
+    {
+        return SubjectClass::where('institute_id',Qs::getInstituteId())->get();
+    }
+
+    public function updateSubjectClass($id, $data)
+    {
+        return SubjectClass::where('institute_id',Qs::getInstituteId())->find($id)->update($data);
+    }
+
+    public function createSubjectClass($data)
+    {
+        return SubjectClass::create($data);
+    }
+    public function deleteSubjectClass($id)
+    {
+        return SubjectClass::where('institute_id',Qs::getInstituteId())->where('id',$id)->delete();
+    }
+    public function deleteSubjectClassByClass($subject_id)
+    {
+        return SubjectClass::where('institute_id',Qs::getInstituteId())->where('subject_id',$subject_id)->delete();
+
+    }
+    public function findSubjectClass($id)
+    {
+        return CampusClass::where('institute_id',Qs::getInstituteId())->find($id);
+    }
      
     
     

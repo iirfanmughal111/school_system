@@ -36,7 +36,16 @@
                                 <input value="{{ $sr->user->email  }}" type="email" name="email" class="form-control" placeholder="your@email.com">
                             </div>
                         </div>
-
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="user_type"> Select Campus: <span class="text-danger">*</span></label>
+                                <select required data-placeholder="Select Campus" class="form-control select" name="campus_id" id="campus_id">
+                                    @foreach($campuses as $campus)
+                                        <option value="{{ Qs::hash($campus->id) }}">{{ $campus->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="gender">Gender: <span class="text-danger">*</span></label>
@@ -105,7 +114,42 @@
                         </div>
 
                     </div>
+                    
                     <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="nal_id">Religion: <span class="text-danger">*</span></label>
+                                <select data-placeholder="Choose..." required name="religion_id" id="religion_id" class="select-search form-control">
+                                    <option value=""></option>
+                                    @foreach($religions as $religion)
+                                        <option {{ ($sr->user->religion_id == $religion->id ? 'selected' : '') }} value="{{ $religion->id }}">{{ $religion->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="tongue_id">Tongue: <span class="text-danger">*</span></label>
+                                <select data-placeholder="Choose..." required name="tongue_id" id="tongue_id" class="select-search form-control">
+                                    <option value=""></option>
+                                    @foreach($tongues as $tongue)
+                                        <option {{ $sr->user->tongue_id == $tongue->id ? 'selected' : '' }} value="{{ $tongue->id }}">{{ $tongue->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="nal_id">Status: <span class="text-danger">*</span></label>
+                                <select data-placeholder="Choose..." required name="is_active" id="is_active" class="select-search form-control">
+                                    <option  {{ ($sr->user->is_active == '1') ? 'selected' : '' }} value="1">Active</option>
+                                    <option {{ ($sr->user->is_active == '0') ? 'selected' : '' }} value="0">Disablled</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="bg_id">Blood Group: </label>
@@ -152,14 +196,13 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="my_parent_id">Parent: </label>
                                 <select data-placeholder="Choose..."  name="my_parent_id" id="my_parent_id" class="select-search form-control">
                                     <option  value=""></option>
                                     @foreach($parents as $p)
-                                        <option {{ (Qs::hash($sr->parent_id) == Qs::hash($p->id)) ? 'selected' : '' }} value="{{ Qs::hash($p->id) }}">{{ $p->name }}</option>
+                                        <option {{ (Qs::hash($sr->my_parent_id) == Qs::hash($p->id)) ? 'selected' : '' }} value="{{ Qs::hash($p->id) }}"> {{ $p->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

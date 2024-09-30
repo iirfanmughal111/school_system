@@ -153,8 +153,19 @@
                      {{--Manage Campuses--}}
 
                      <li class="nav-item">
-                        <a href="{{ route('campuses.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['campuses.index']) ? 'active' : '' }}"><i class="icomoon icon-dice"></i><span> Campuses</span></a>
+                        <a href="{{ route('campuses.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['campuses.index']) ? 'active' : '' }}"><i class="icomoon icon-power-cord"></i><span> Campuses</span></a>
                     </li>  
+                     {{--Manage Campus Classes--}}
+
+                    <li class="nav-item">
+                        <a href="{{ route('campusclasses.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['campusclasses.index']) ? 'active' : '' }}"><i class="icomoon icon-dice"></i><span> Campus Classes</span></a>
+                    </li> 
+                    
+                     {{--Manage Campus Classes--}}
+
+                     <li class="nav-item">
+                        <a href="{{ route('subjectclasses.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['subjectclasses.index']) ? 'active' : '' }}"><i class="icomoon icon-book"></i><span> Class Subjects</span></a>
+                    </li>
                     {{--Manage Religion--}}
 
                     <li class="nav-item">

@@ -147,6 +147,9 @@ class StudentRecordController extends Controller
         $data['dorms'] = $this->student->getAllDorms();
         $data['states'] = $this->loc->getStates();
         $data['nationals'] = $this->loc->getAllNationals();
+        $data['religions'] = $this->config->getReligions()->where('is_active',1);
+        $data['tongues'] = $this->config->getTongues()->where('is_active',1);
+        $data['campuses'] = $this->config->getCampuses()->where('is_active',1);
         return view('pages.support_team.students.edit', $data);
     }
 
@@ -158,6 +161,8 @@ class StudentRecordController extends Controller
         $sr = $this->student->getRecord(['id' => $sr_id])->first();
         $d =  $req->only(Qs::getUserRecord());
         $d['name'] = ucwords($req->name);
+       $d['campus_id'] = Qs::decodeHash($d['campus_id']);
+
 
         if($req->hasFile('photo')) {
             $photo = $req->file('photo');
