@@ -397,8 +397,10 @@ class Qs
     }
     public static function getInstituteId()
     {
-        return Auth::check() ? Auth::user()->institute_id : 1;
+        // dump(app()->auth,\Auth::check());
+        return \Auth::check() ? \Auth::user()->institute_id : 1;
     }
+    
 
     public static function random_dark_color() {
         $dt = '';

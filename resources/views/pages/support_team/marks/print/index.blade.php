@@ -9,7 +9,7 @@
         {{--    Logo N School Details--}}
         <table width="100%">
             <tr>
-                <td><img src="{{ $s['logo'] }}" style="max-height : 100px;"></td>
+                <td><img src="{{ $sr->user->getAvatar() }}" style="max-height : 100px;"></td>
 
                 <td style="text-align: center; ">
                     <strong><span style="color: #1b0c80; font-size: 25px;">{{ strtoupper(Qs::getSetting('system_name')) }}</span></strong><br/>
@@ -20,7 +20,7 @@
                     </span></strong>
                 </td>
                 <td style="width: 100px; height: 100px; float: left;">
-                    <img src="{{ $sr->user->photo }}"
+                    <img src="{{ $sr->user->institute->getLogo() }}"
                          alt="..."  width="100" height="100">
                 </td>
             </tr>
@@ -29,7 +29,7 @@
 
         {{--Background Logo--}}
         <div style="position: relative;  text-align: center; ">
-            <img src="{{ $s['logo'] }}"
+            <img src="{{ $sr->user->getAvatar() }}"
                  style="max-width: 500px; max-height:600px; margin-top: 60px; position:absolute ; opacity: 0.2; margin-left: auto;margin-right: auto; left: 0; right: 0;" />
         </div>
 

@@ -29,7 +29,7 @@ class ExamController extends Controller
     {
         $data = $req->only(['name', 'term']);
         $data['year'] = Qs::getSetting('current_session');
-
+        $data['institute_id'] = Qs::getInstituteId();
         $this->exam->create($data);
         return back()->with('flash_success', __('msg.store_ok'));
     }
@@ -42,7 +42,9 @@ class ExamController extends Controller
 
     public function update(ExamUpdate $req, $id)
     {
+     
         $data = $req->only(['name', 'term']);
+        $data['institution_id'] = Qs::getInstituteId();
 
         $this->exam->update($id, $data);
         return back()->with('flash_success', __('msg.update_ok'));

@@ -27,16 +27,25 @@ class MarkController extends Controller
         $this->my_class =  $my_class;
         $this->year =  Qs::getSetting('current_session');
 
+        $this->middleware(function ($request, $next) {
+            // $user = Auth::user();
+            // dd($user);
+            $this->year =  Qs::getSetting('current_session',Auth::user()->institute_id);
+
+            return $next($request);
+        });
+
        // $this->middleware('teamSAT', ['except' => ['show', 'year_selected', 'year_selector', 'print_view'] ]);
     }
 
     public function index()
     {
-        $d['exams'] = $this->exam->getExam(['year' => $this->year]);
+        $d['exams'] = $this->exam->getExam(['year' => Qs::getSetting('current_session')]);
         $d['my_classes'] = $this->my_class->all();
         $d['sections'] = $this->my_class->getAllSections();
         $d['subjects'] = $this->my_class->getAllSubjects();
         $d['selected'] = false;
+
 
         return view('pages.support_team.marks.index', $d);
     }
@@ -143,17 +152,19 @@ class MarkController extends Controller
         $d2 = $req->only(['exam_id', 'my_class_id', 'section_id']);
         $d = $req->only(['my_class_id', 'section_id']);
         $d['session'] = $data['year'] = $d2['year'] = $this->year;
-
         $students = $this->student->getRecord($d)->get();
+     
         if($students->count() < 1){
             return back()->with('pop_error', __('msg.rnf'));
         }
-
+       
         foreach ($students as $s){
             $data['student_id'] = $d2['student_id'] = $s->user_id;
+            $d['institute_id'] = $data['institute_id'] =Qs::getInstituteId();
             $this->exam->createMark($data);
             $this->exam->createRecord($d2);
-        }
+        } 
+        // dd($data);
 
         return redirect()->route('marks.manage', [$req->exam_id, $req->my_class_id, $req->section_id, $req->subject_id]);
     }
@@ -161,7 +172,7 @@ class MarkController extends Controller
     public function manage($exam_id, $class_id, $section_id, $subject_id)
     {
         $d = ['exam_id' => $exam_id, 'my_class_id' => $class_id, 'section_id' => $section_id, 'subject_id' => $subject_id, 'year' => $this->year];
-
+        
         $d['marks'] = $this->exam->getMark($d);
         if($d['marks']->count() < 1){
             return $this->noStudentRecord();
@@ -172,6 +183,7 @@ class MarkController extends Controller
         $d['my_classes'] = $this->my_class->all();
         $d['sections'] = $this->my_class->getAllSections();
         $d['subjects'] = $this->my_class->getAllSubjects();
+     
         if(Qs::userIsTeacher()){
             $d['subjects'] = $this->my_class->findSubjectByTeacher(Auth::user()->id)->where('my_class_id', $class_id);
         }
@@ -189,6 +201,7 @@ class MarkController extends Controller
 
         $exam = $this->exam->find($exam_id);
         $marks = $this->exam->getMark($p);
+        
         $class_type = $this->my_class->findTypeByClass($class_id);
 
         $mks = $req->all();
@@ -223,7 +236,7 @@ class MarkController extends Controller
             }*/
             $grade = $this->mark->getGrade($total, $class_type->id);
             $d['grade_id'] = $grade ? $grade->id : NULL;
-
+            $d['institute_id'] = Qs::getInstituteId();
             $this->exam->updateMark($mk->id, $d);
         }
 
@@ -446,7 +459,7 @@ class MarkController extends Controller
     {
         $years = $this->exam->getExamYears($student_id);
         $student_exists = $this->student->exists($student_id);
-
+        
         if(!$year){
             if($student_exists && $years->count() > 0)
             {

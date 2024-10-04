@@ -33,15 +33,10 @@ class SubjectController extends Controller
         $d['subjectclasses'] = $this->config->getSubjectClasses()->where('is_active',1);
        // $classes = array_unique($d['subjectclasses']->pluck('subject_id')->toArray());
         $selected = [];
-        // foreach($classes as $c){
-        //     $selected[$c] =  $d['subjectclasses']->where('subject_id',$c)->pluck('my_class_id')->toArray();
-        // }
+
         foreach($d['my_classes'] as $c){
             $subs = $d['subjectclasses']->where('my_class_id',$c->id)->pluck('subject_id')->toArray();
 
-                if ($subs){
-                  //  $selected = call_user_func_array('array_merge', $subs);
-                }
             $selected[$c->id] = $this->my_class->getSubjectsByIDs($subs); 
             // if (isset($selected[$c->id])) {
             //     $selected[] = $subs; 

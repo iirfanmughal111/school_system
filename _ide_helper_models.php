@@ -36,6 +36,69 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Campus
+ *
+ * @property int $id
+ * @property string|null $name
+ * @property string|null $short_name
+ * @property string|null $lga_id
+ * @property string|null $state_id
+ * @property string|null $address
+ * @property string|null $contact
+ * @property string|null $est_date
+ * @property int $institute_id
+ * @property int $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\MyClass> $classes
+ * @property-read int|null $classes_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus whereContact($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus whereEstDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus whereInstituteId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus whereLgaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus whereShortName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus whereStateId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Campus whereUpdatedAt($value)
+ */
+	class Campus extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\CampusClass
+ *
+ * @property int $id
+ * @property string|null $my_class_id
+ * @property int|null $campus_id
+ * @property int $institute_id
+ * @property int $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Campus|null $campus
+ * @method static \Illuminate\Database\Eloquent\Builder|CampusClass newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CampusClass newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CampusClass query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CampusClass whereCampusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CampusClass whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CampusClass whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CampusClass whereInstituteId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CampusClass whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CampusClass whereMyClassId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CampusClass whereUpdatedAt($value)
+ */
+	class CampusClass extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\ClassType
  *
  * @property int $id
@@ -93,12 +156,14 @@ namespace App\Models{
  * @property int $term
  * @property string $year
  * @property int $institute_id
+ * @property int $campus_id
  * @property int $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Exam newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Exam newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Exam query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Exam whereCampusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Exam whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Exam whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Exam whereInstituteId($value)
@@ -197,7 +262,7 @@ namespace App\Models{
  * @property string|null $name
  * @property string|null $lga_id
  * @property string|null $state_id
- * @property string|null $user_id
+ * @property int|null $user_id
  * @property string|null $created_by
  * @property string|null $modified_by
  * @property int $is_active
@@ -282,12 +347,12 @@ namespace App\Models{
  * @property int $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Exam|null $exam
+ * @property-read \App\Models\Exam $exam
  * @property-read \App\Models\Grade|null $grade
- * @property-read \App\Models\MyClass|null $my_class
- * @property-read \App\Models\Section|null $section
- * @property-read \App\Models\Subject|null $subject
- * @property-read \App\User|null $user
+ * @property-read \App\Models\MyClass $my_class
+ * @property-read \App\Models\Section $section
+ * @property-read \App\Models\Subject $subject
+ * @property-read \App\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Mark newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Mark newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Mark query()
@@ -413,6 +478,7 @@ namespace App\Models{
  * @property string|null $description
  * @property string $year
  * @property int $institute_id
+ * @property int $campus_id
  * @property int $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -421,6 +487,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCampusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereId($value)
@@ -452,10 +519,10 @@ namespace App\Models{
  * @property int $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Payment|null $payment
+ * @property-read \App\Models\Payment $payment
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Receipt> $receipt
  * @property-read int|null $receipt_count
- * @property-read \App\User|null $student
+ * @property-read \App\User $student
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentRecord newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentRecord newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentRecord query()
@@ -524,11 +591,11 @@ namespace App\Models{
  * @property int $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\MyClass|null $fc
- * @property-read \App\Models\Section|null $fs
- * @property-read \App\User|null $student
- * @property-read \App\Models\MyClass|null $tc
- * @property-read \App\Models\Section|null $ts
+ * @property-read \App\Models\MyClass $fc
+ * @property-read \App\Models\Section $fs
+ * @property-read \App\User $student
+ * @property-read \App\Models\MyClass $tc
+ * @property-read \App\Models\Section $ts
  * @method static \Illuminate\Database\Eloquent\Builder|Promotion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Promotion newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Promotion query()
@@ -563,7 +630,7 @@ namespace App\Models{
  * @property int $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\PaymentRecord|null $pr
+ * @property-read \App\Models\PaymentRecord $pr
  * @method static \Illuminate\Database\Eloquent\Builder|Receipt newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Receipt newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Receipt query()
@@ -582,6 +649,31 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Religion
+ *
+ * @property int $id
+ * @property string|null $name
+ * @property string|null $code
+ * @property int $institute_id
+ * @property int $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Religion newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Religion newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Religion query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Religion whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Religion whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Religion whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Religion whereInstituteId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Religion whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Religion whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Religion whereUpdatedAt($value)
+ */
+	class Religion extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Section
  *
  * @property int $id
@@ -590,9 +682,10 @@ namespace App\Models{
  * @property int|null $teacher_id
  * @property int $active
  * @property int $institute_id
+ * @property int $campus_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\MyClass|null $my_class
+ * @property-read \App\Models\MyClass $my_class
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StudentRecord> $student_record
  * @property-read int|null $student_record_count
  * @property-read \App\User|null $teacher
@@ -600,6 +693,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Section newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Section query()
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Section whereCampusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereInstituteId($value)
@@ -672,13 +766,15 @@ namespace App\Models{
  * @property string|null $code
  * @property string|null $emp_date
  * @property int $institute_id
+ * @property int $campus_id
  * @property int $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\User|null $user
+ * @property-read \App\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|StaffRecord newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StaffRecord newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StaffRecord query()
+ * @method static \Illuminate\Database\Eloquent\Builder|StaffRecord whereCampusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StaffRecord whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StaffRecord whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StaffRecord whereEmpDate($value)
@@ -737,10 +833,10 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Dorm|null $dorm
- * @property-read \App\Models\MyClass|null $my_class
+ * @property-read \App\Models\MyClass $my_class
  * @property-read \App\User|null $my_parent
- * @property-read \App\Models\Section|null $section
- * @property-read \App\User|null $user
+ * @property-read \App\Models\Section $section
+ * @property-read \App\User $user
  * @method static \Database\Factories\StudentRecordFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|StudentRecord newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StudentRecord newQuery()
@@ -780,8 +876,8 @@ namespace App\Models{
  * @property int $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\MyClass|null $my_class
- * @property-read \App\User|null $teacher
+ * @property-read \App\Models\MyClass $my_class
+ * @property-read \App\User $teacher
  * @method static \Illuminate\Database\Eloquent\Builder|Subject newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Subject newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Subject query()
@@ -796,6 +892,35 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Subject whereUpdatedAt($value)
  */
 	class Subject extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\SubjectClass
+ *
+ * @property int $id
+ * @property string|null $my_class_id
+ * @property int|null $subject_id
+ * @property int $institute_id
+ * @property int $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\MyClass> $classes
+ * @property-read int|null $classes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subject> $subject
+ * @property-read int|null $subject_count
+ * @method static \Illuminate\Database\Eloquent\Builder|SubjectClass newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SubjectClass newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SubjectClass query()
+ * @method static \Illuminate\Database\Eloquent\Builder|SubjectClass whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubjectClass whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubjectClass whereInstituteId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubjectClass whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubjectClass whereMyClassId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubjectClass whereSubjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SubjectClass whereUpdatedAt($value)
+ */
+	class SubjectClass extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -815,17 +940,21 @@ namespace App\Models{
  * @property string $timestamp_from
  * @property string $timestamp_to
  * @property string $full
+ * @property int $institute_id
+ * @property int $campus_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\TimeTableRecord|null $tt_record
+ * @property-read \App\Models\TimeTableRecord $tt_record
  * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot query()
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot whereCampusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot whereFull($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot whereHourFrom($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot whereHourTo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot whereInstituteId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot whereMeridianFrom($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot whereMeridianTo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeSlot whereMinFrom($value)
@@ -853,19 +982,23 @@ namespace App\Models{
  * @property string $timestamp_to
  * @property string|null $day
  * @property int|null $day_num
+ * @property int $institute_id
+ * @property int $campus_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Subject|null $subject
- * @property-read \App\Models\TimeSlot|null $time_slot
- * @property-read \App\Models\TimeTableRecord|null $tt_record
+ * @property-read \App\Models\TimeSlot $time_slot
+ * @property-read \App\Models\TimeTableRecord $tt_record
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTable newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTable newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTable query()
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeTable whereCampusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTable whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTable whereDay($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTable whereDayNum($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTable whereExamDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTable whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeTable whereInstituteId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTable whereSubjectId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTable whereTimestampFrom($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTable whereTimestampTo($value)
@@ -888,12 +1021,14 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $institute_id
+ * @property int $campus_id
  * @property int $is_active
  * @property-read \App\Models\Exam|null $exam
- * @property-read \App\Models\MyClass|null $my_class
+ * @property-read \App\Models\MyClass $my_class
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTableRecord newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTableRecord newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTableRecord query()
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeTableRecord whereCampusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTableRecord whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTableRecord whereExamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TimeTableRecord whereId($value)
@@ -909,9 +1044,36 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Tongue
+ *
+ * @property int $id
+ * @property string|null $name
+ * @property string|null $code
+ * @property int $institute_id
+ * @property int $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Tongue newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tongue newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tongue query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tongue whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tongue whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tongue whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tongue whereInstituteId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tongue whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tongue whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tongue whereUpdatedAt($value)
+ */
+	class Tongue extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\User
  *
  * @property int $id
+ * @property int|null $religion_id
+ * @property int|null $tongue_id
  * @property string $name
  * @property string|null $email
  * @property string $code
@@ -928,6 +1090,7 @@ namespace App\Models{
  * @property int|null $nal_id
  * @property string|null $address
  * @property int $institute_id
+ * @property int $campus_id
  * @property int $is_active
  * @property int $parent_id
  * @property string|null $email_verified_at
@@ -942,6 +1105,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereBgId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCampusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDob($value)
@@ -959,8 +1123,10 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone2($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereReligionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereStateId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereTongueId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUserType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
@@ -1000,6 +1166,8 @@ namespace App{
  * App\User
  *
  * @property int $id
+ * @property int|null $religion_id
+ * @property int|null $tongue_id
  * @property string $name
  * @property string|null $email
  * @property string $code
@@ -1016,6 +1184,7 @@ namespace App{
  * @property int|null $nal_id
  * @property string|null $address
  * @property int $institute_id
+ * @property int $campus_id
  * @property int $is_active
  * @property int $parent_id
  * @property string|null $email_verified_at
@@ -1024,21 +1193,27 @@ namespace App{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\BloodGroup|null $blood_group
+ * @property-read \App\Models\Campus|null $campus
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\MediaFile> $images
+ * @property-read int|null $images_count
  * @property-read \App\Models\Institute $institute
  * @property-read \App\Models\Lga|null $lga
  * @property-read \App\Models\Nationality|null $nationality
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \App\Models\Religion|null $religion
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StaffRecord> $staff
  * @property-read int|null $staff_count
  * @property-read \App\Models\State|null $state
  * @property-read \App\Models\StudentRecord|null $student_record
+ * @property-read \App\Models\Tongue|null $tongue
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereBgId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCampusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDob($value)
@@ -1056,8 +1231,10 @@ namespace App{
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone2($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereReligionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereStateId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereTongueId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUserType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)

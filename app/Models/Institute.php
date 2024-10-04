@@ -28,6 +28,15 @@ class Institute extends Model
     function images(){
         return $this->hasMany(MediaFile::class, 'institute_id', 'id');
     }
+    function user(){
+        return $this->hasOne(User::class, 'id', 'user_id')->withDefault([
+            'name' => 'Unknown',
+            'email' => 'unknown',
+            'phone' => 'unknown',
+            'address' => 'unknown',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+    }
     
     public function getLogo()
     {

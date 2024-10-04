@@ -56,7 +56,6 @@ class SubjectClassesController extends Controller
                         'institute_id' =>Qs::getInstituteId(),
                         'subject_id' =>$sub->id,
                     ];
-                    dump($data);
                    $this->config->createSubjectClass($data);
                 }
             }

@@ -5,16 +5,18 @@ namespace App\Http\Controllers;
 use App\Helpers\Qs;
 use App\Repositories\LocationRepo;
 use App\Repositories\MyClassRepo;
+use App\Repositories\ConfigRepo;
 use Illuminate\Support\Facades\Auth;
 
 class AjaxController extends Controller
 {
-    protected $loc, $my_class;
+    protected $loc, $my_class,$config;
 
-    public function __construct(LocationRepo $loc, MyClassRepo $my_class)
+    public function __construct(LocationRepo $loc, MyClassRepo $my_class,ConfigRepo $config)
     {
         $this->loc = $loc;
         $this->my_class = $my_class;
+        $this->config = $config;
     }
 
     public function get_lga($state_id)
@@ -38,8 +40,12 @@ class AjaxController extends Controller
 
     public function get_class_subjects($class_id)
     {
+        $temp_subs = $this->config->getSubjectClasses()->where('is_active',1);
+        $subs = $temp_subs->where('my_class_id',$class_id)->pluck('subject_id')->toArray();
+        $subjects = $this->my_class->getSubjectsByIDs($subs);
+      
         $sections = $this->my_class->getClassSections($class_id);
-        $subjects = $this->my_class->findSubjectByClass($class_id);
+        // $subjects = $this->my_class->findSubjectByClass($class_id);
 
         if(Qs::userIsTeacher()){
             $subjects = $this->my_class->findSubjectByTeacher(Auth::user()->id)->where('my_class_id', $class_id);

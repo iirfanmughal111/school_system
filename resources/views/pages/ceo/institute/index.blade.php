@@ -29,7 +29,7 @@
                                 <th>S/N</th>
                                 <th>Name</th>
                                 <th>Phone</th>
-                                <th>Email</th>
+                                <th>User Email</th>
                                 <th>Address</th>
                                 <th>Action</th>
                             </tr>
@@ -38,10 +38,10 @@
                             @foreach($institutes as $u)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $u->name }}</td>
-                                    <td>phone</td>
-                                    <td>email</td>
-                                    <td>{{ $u->email }}</td>
+                                    <td>{{ $u->name }} </td>
+                                    <td>{{ $u->user->phone }}</td>
+                                    <td>{{ $u->user->email }}</td>
+                                    <td>{{ Qs::getSetting('address',$u->id) }}</td>
                                     <td class="text-center">
                                         <div class="list-icons">
                                             <div class="dropdown">
@@ -51,7 +51,7 @@
 
                                                 <div class="dropdown-menu dropdown-menu-left">
                                                     {{--View Profile--}}
-                                                    <a href="{{ route('users.show', Qs::hash($u->id)) }}" class="dropdown-item"><i class="icon-eye"></i> View Profile</a>
+                                                    {{-- <a href="{{ route('users.show', Qs::hash($u->id)) }}" class="dropdown-item"><i class="icon-eye"></i> View Profile</a> --}}
                                                     
                                                     {{--Edit--}}
                                                     <a href="{{ route('institutes.edit', $u->id) }}" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>

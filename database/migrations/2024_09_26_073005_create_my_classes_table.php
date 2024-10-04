@@ -23,7 +23,7 @@ class CreateMyClassesTable extends Migration
         });
 
         Schema::table('my_classes', function (Blueprint $table) {
-            $table->unique(['class_type_id', 'name']);
+            $table->unique(['class_type_id', 'name','institute_id']);
         });
     }
 

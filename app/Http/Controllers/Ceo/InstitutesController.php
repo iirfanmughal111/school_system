@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Ceo;
 
 use App\Http\Controllers\Controller;
 use App\Models\Institute;
+use App\Models\MyClass;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Repositories\LocationRepo;
 use App\Repositories\MyClassRepo;
 use App\Repositories\UserRepo;
 use App\Repositories\InstitutesRepo;
+use App\Helpers\CreateDefaultData;
 class InstitutesController extends Controller
 {
     protected $user, $loc, $my_class,$institutes;
@@ -31,6 +33,8 @@ class InstitutesController extends Controller
      */
     public function index()
     {
+        // $c = MyClass::where('institute_id' ,  3)->get(['id'])->pluck('id');
+        // dd($c[0]);
         $d['institutes'] = $this->institutes->getAll();
         $d['users'] = $this->user->getSuperNewAdmin();
         $d['nationals'] = $this->loc->getAllNationals();
@@ -58,6 +62,7 @@ class InstitutesController extends Controller
      */
     public function store(Request $request)
     {
+        $creatDefaultEntries = false;
         // Validate input data
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -75,14 +80,25 @@ class InstitutesController extends Controller
         }
         else{
             $institute = $this->institutes->create($validated);
+            if ($institute){
+                $creatDefaultEntries = true;
+            }
             $institute_id = $institute->id;
+          
         }
             
-            $this->user->update( $validated['user_id'], ['institute_id'=>$institute_id]);
-       
+        $this->user->update( $validated['user_id'], ['institute_id'=>$institute_id]);
+        
+        if ($creatDefaultEntries){
+            $newData = new CreateDefaultData($institute);
+            $newData->createAllDefaultData();
+        } 
 
         // Redirect with success message
         return redirect()->route('institutes.index')->with('success', 'Institute created successfully.');
+    }
+    protected function createDefaultEntries($institute_id){
+
     }
 
     /**

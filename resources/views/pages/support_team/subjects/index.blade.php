@@ -54,9 +54,9 @@
                                 </div> --}}
 
                                 <div class="form-group row">
-                                    <label for="teacher_id" class="col-lg-3 col-form-label font-weight-semibold">Head Teacher <span class="text-danger">*</span></label>
+                                    <label for="teacher_id" class="col-lg-3 col-form-label font-weight-semibold">Head Teacher </label>
                                     <div class="col-lg-9">
-                                        <select required data-placeholder="Select Teacher" class="form-control select-search" name="teacher_id" id="teacher_id">
+                                        <select  data-placeholder="Select Teacher" class="form-control select-search" name="teacher_id" id="teacher_id">
                                             <option value=""></option>
                                             @foreach($teachers as $t)
                                                 <option {{ old('teacher_id') == Qs::hash($t->id) ? 'selected' : '' }} value="{{ Qs::hash($t->id) }}">{{ $t->name }}</option>

@@ -42,22 +42,23 @@ class StudentRepo {
 
     public function updateRecord($id, array $data)
     {
-        return StudentRecord::find($id)->update($data);
+        return StudentRecord::where('institute_id',Qs::getInstituteId())->find($id)->update($data);
     }
 
     public function update(array $where, array $data)
     {
-        return StudentRecord::where($where)->update($data);
+        return StudentRecord::where('institute_id',Qs::getInstituteId())->where($where)->update($data);
     }
 
     public function getRecord(array $data)
     {
-        return $this->activeStudents()->where($data)->with('user');
+        // dd($this->activeStudents()->get());
+        return $this->activeStudents()->where('institute_id',Qs::getInstituteId())->where($data)->with('user');
     }
 
     public function getRecordByUserIDs($ids)
     {
-        return $this->activeStudents()->whereIn('user_id', $ids)->with('user');
+        return $this->activeStudents()->where('institute_id',Qs::getInstituteId())->whereIn('user_id', $ids)->with('user');
     }
 
     public function findByUserId($st_id)
@@ -72,7 +73,7 @@ class StudentRepo {
 
     public function getGradRecord($data=[])
     {
-        return $this->gradStudents()->where($data)->with('user');
+        return $this->gradStudents()->where('institute_id',Qs::getInstituteId())->where($data)->with('user');
     }
 
     public function getAllDorms()
