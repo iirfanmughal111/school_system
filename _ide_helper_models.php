@@ -185,6 +185,7 @@ namespace App\Models{
  * @property int $student_id
  * @property int $my_class_id
  * @property int $section_id
+ * @property int|null $subject_id
  * @property int|null $total
  * @property string|null $ave
  * @property string|null $class_ave
@@ -215,6 +216,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ExamRecord wherePs($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ExamRecord whereSectionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ExamRecord whereStudentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ExamRecord whereSubjectId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ExamRecord whereTComment($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ExamRecord whereTotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ExamRecord whereUpdatedAt($value)
@@ -273,6 +275,7 @@ namespace App\Models{
  * @property-read int|null $images_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Setting> $settings
  * @property-read int|null $settings_count
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Institute newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Institute newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Institute onlyTrashed()

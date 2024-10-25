@@ -19,7 +19,12 @@
                                 <input name="name" value="{{ $ex->name }}" required type="text" class="form-control" placeholder="Name of Exam">
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label font-weight-semibold">Total Marks <span class="text-danger">*</span></label>
+                            <div class="col-lg-9">
+                                <input name="marks" value="{{$ex->marks }}" required type="text" class="form-control" placeholder="Total Marks">
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="term" class="col-lg-3 col-form-label font-weight-semibold">Term</label>
                             <div class="col-lg-9">

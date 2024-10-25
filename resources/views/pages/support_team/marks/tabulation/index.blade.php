@@ -17,7 +17,7 @@
                                             <label for="exam_id" class="col-form-label font-weight-bold">Exam:</label>
                                             <select required id="exam_id" name="exam_id" class="form-control select" data-placeholder="Select Exam">
                                                 @foreach($exams as $exm)
-                                                    <option {{ ($selected && $exam_id == $exm->id) ? 'selected' : '' }} value="{{ $exm->id }}">{{ $exm->name }}</option>
+                                                    <option {{ ($selected && $exam_id == $exm->id) ? 'selected' : '' }} value="{{ Qs::hash($exm->id) }}">{{ $exm->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -29,7 +29,8 @@
                                             <select onchange="getClassSections(this.value)" required id="my_class_id" name="my_class_id" class="form-control select" data-placeholder="Select Class">
                                                 <option value=""></option>
                                                 @foreach($my_classes as $c)
-                                                    <option {{ ($selected && $my_class_id == $c->id) ? 'selected' : '' }} value="{{ $c->id }}">{{ $c->name }}</option>
+                                                    <option {{ ($selected && $my_class_id == $c->id) ? 'selected' : '' }} value="{{ 
+                                                    $c->id }}">{{ $c->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -73,7 +74,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>NAMES_OF_STUDENTS_IN_CLASS</th>
+                        <th>NAMES OF STUDENTS IN CLASS</th>
                        @foreach($subjects as $sub)
                        <th title="{{ $sub->name }}" rowspan="2">{{ strtoupper($sub->slug ?: $sub->name) }}</th>
                        @endforeach
@@ -90,26 +91,24 @@
                     </tr>
                     </thead>
                     <tbody>
+                        {{-- @dd($marks) --}}
                     @foreach($students as $s)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td style="text-align: center">{{ $s->user->name }}</td>
+                            {{-- @dd($subjects) --}}
                             @foreach($subjects as $sub)
-                            <td>{{ $marks->where('student_id', $s->user_id)->where('subject_id', $sub->id)->first()->$tex ?? '-' ?: '-' }}</td>
+                                <td>{{ $marks->where('student_id', $s->user_id)->where('subject_id', $sub->id)->first()->$tex ?? 'A'  }}</td>
                             @endforeach
 
-                            {{--@if($ex->term == 3)
-                                --}}{{--1st term Total--}}{{--
-                            <td>{{ Mk::getTermTotal($s->user_id, 1, $year) ?? '-' }}</td>
-                            --}}{{--2nd Term Total--}}{{--
-                            <td>{{ Mk::getTermTotal($s->user_id, 2, $year) ?? '-' }}</td>
-                            --}}{{--3rd Term total--}}{{--
-                            <td>{{ Mk::getTermTotal($s->user_id, 3, $year) ?? '-' }}</td>
-                            @endif--}}
+                            @php
+                                $marks_meta =  $exr->where('student_id', $s->user_id)->first();
+                                
+                            @endphp
 
-                            <td style="color: darkred">{{ $exr->where('student_id', $s->user_id)->first()->total ?: '-' }}</td>
-                            <td style="color: darkblue">{{ $exr->where('student_id', $s->user_id)->first()->ave ?: '-' }}</td>
-                            <td style="color: darkgreen">{!! Mk::getSuffix($exr->where('student_id', $s->user_id)->first()->pos) ?: '-' !!}</td>
+                            <td style="color: darkred">{{ $marks_meta ? $marks_meta->total  : 'A' }}</td>
+                            <td style="color: darkblue">{{  $marks_meta ? $marks_meta->ave  : 'A' }}</td>
+                            <td style="color: darkgreen">{!! Mk::getSuffix($exr->where('student_id', $s->user_id)->first()->pos) ?? 'A' !!}</td>
                         </tr>
                     @endforeach
                     </tbody>

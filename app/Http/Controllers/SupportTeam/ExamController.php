@@ -27,7 +27,12 @@ class ExamController extends Controller
 
     public function store(ExamCreate $req)
     {
-        $data = $req->only(['name', 'term']);
+        $data = $req->validate([
+            'name' => 'required|string',
+            'term' => 'required|string',
+            'marks' => 'required|numeric',
+            'remarks' => 'nullable|string',
+        ]);
         $data['year'] = Qs::getSetting('current_session');
         $data['institute_id'] = Qs::getInstituteId();
         $this->exam->create($data);
@@ -43,7 +48,12 @@ class ExamController extends Controller
     public function update(ExamUpdate $req, $id)
     {
      
-        $data = $req->only(['name', 'term']);
+        $data = $req->validate([
+            'name' => 'required|string',
+            'term' => 'required|string',
+            'marks' => 'required|numeric',
+            'remarks' => 'nullable|string',
+        ]);
         $data['institution_id'] = Qs::getInstituteId();
 
         $this->exam->update($id, $data);

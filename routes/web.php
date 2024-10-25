@@ -194,3 +194,11 @@ Route::group(['namespace' => 'MyParent','middleware' => 'my_parent',], function(
     Route::get('/my_children', 'MyController@children')->name('my_children');
 
 });
+
+Route::fallback(function ()
+{
+    # To Specific Controller
+    return Redirect::to('home');
+    # To Specific View
+   // return response()->view('custom.file.path', [], 404);
+});

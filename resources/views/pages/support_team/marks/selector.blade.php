@@ -33,8 +33,8 @@
                                 <label for="section_id" class="col-form-label font-weight-bold">Section:</label>
                                 <select required id="section_id" name="section_id" data-placeholder="Select Class First" class="form-control select">
                                    @if($selected)
-                                        @foreach($sections->where('my_class_id', $my_class_id) as $s)
-                                            <option {{ $section_id == $s->id ? 'selected' : '' }} value="{{ $s->id }}">{{ $s->name }}</option>
+                                        @foreach($sections as $s)
+                                            <option {{ $section_id == $s['id'] ? 'selected' : '' }} value="{{ $s['id'] }}">{{ $s['name'] }}</option>
                                         @endforeach
                                        @endif
                                 </select>
@@ -46,8 +46,8 @@
                                 <label for="subject_id" class="col-form-label font-weight-bold">Subject:</label>
                                 <select required id="subject_id" name="subject_id" data-placeholder="Select Class First" class="form-control select-search">
                                   @if($selected)
-                                        @foreach($subjects->where('my_class_id', $my_class_id) as $s)
-                                            <option {{ $subject_id == $s->id ? 'selected' : '' }} value="{{ $s->id }}">{{ $s->name }}</option>
+                                        @foreach($subjects as $s)
+                                            <option {{ $subject_id == $s['id'] ? 'selected' : '' }} value="{{ $s['id'] }}">{{ $s['name'] }}</option>
                                         @endforeach
                                       @endif
                                 </select>

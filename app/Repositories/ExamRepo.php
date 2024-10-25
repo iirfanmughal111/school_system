@@ -33,7 +33,7 @@ class ExamRepo
 
     public function createRecord($data)
     {
-        return ExamRecord::where('institute_id',Qs::getInstituteId())->firstOrCreate($data);
+        return ExamRecord::firstOrCreate($data);
     }
 
     public function update($id, $data)
@@ -107,7 +107,7 @@ class ExamRepo
 
     public function updateMark($id, $data)
     {
-        return Mark::where('institute_id',Qs::getInstituteId())->find($id)->update($data);
+        return Mark::find($id)->update($data);
     }
 
     public function getExamYears($student_id)
