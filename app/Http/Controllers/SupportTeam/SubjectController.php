@@ -28,7 +28,7 @@ class SubjectController extends Controller
     {
         $d['my_classes'] = $this->my_class->all();
         $d['teachers'] = $this->user->getUserByType('teacher');
-        $d['subjects'] = $this->my_class->getAllSubjects();
+       // $d['subjects'] = $this->my_class->getAllSubjects();
         // getSubjectsByIDs
         $d['subjectclasses'] = $this->config->getSubjectClasses()->where('is_active',1);
        // $classes = array_unique($d['subjectclasses']->pluck('subject_id')->toArray());

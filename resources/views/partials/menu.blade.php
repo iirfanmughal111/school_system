@@ -222,7 +222,7 @@
                         {{--Exam list--}}
                             <li class="nav-item">
                                 <a href="{{ route('exams.index') }}"
-                                   class="nav-link {{ (Route::is('exams.index')) ? 'active' : '' }}">Exam List</a>
+                                   class="nav-link {{ (Route::is('exams.index')) ? 'active' : '' }}">Exam Groups</a>
                             </li>
 
                             {{--Grades list--}}

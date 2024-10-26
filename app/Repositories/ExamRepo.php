@@ -20,6 +20,10 @@ class ExamRepo
     {
         return Exam::where('institute_id',Qs::getInstituteId())->where($data)->get();
     }
+    public function getExampByDate($data,$range)
+    {
+        return Exam::where('institute_id',Qs::getInstituteId())->whereBetween('created_at', $range)->where($data)->get();
+    }
 
     public function find($id)
     {
@@ -80,7 +84,7 @@ class ExamRepo
 
     public function createGrade($data)
     {
-        return Grade::where('institute_id',Qs::getInstituteId())->create($data);
+        return Grade::create($data);
     }
 
     public function updateGrade($id, $data)

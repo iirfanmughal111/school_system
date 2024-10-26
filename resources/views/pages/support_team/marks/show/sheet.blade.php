@@ -3,10 +3,10 @@
     <tr>
         <th rowspan="2">S/N</th>
         <th rowspan="2">SUBJECTS</th>
-        <th rowspan="2">CA1<br>(20)</th>
-        <th rowspan="2">CA2<br>(20)</th>
-        <th rowspan="2">EXAMS<br>(60)</th>
-        <th rowspan="2">TOTAL<br>(100)</th>
+        {{-- <th rowspan="2">CA1<br>(20)</th> --}}
+        {{-- <th rowspan="2">CA2<br>(20)</th> --}}
+        {{-- <th rowspan="2">EXAMS<br>(60)</th> --}}
+        <th rowspan="2">Obtain</th>
 
         {{--@if($ex->term == 3) --}}{{-- 3rd Term --}}{{--
         <th rowspan="2">TOTAL <br>(100%) 3<sup>RD</sup> TERM</th>
@@ -28,14 +28,14 @@
             <td>{{ $loop->iteration }}</td>
             <td>{{ $sub->name }}</td>
             @foreach($marks->where('subject_id', $sub->id)->where('exam_id', $ex->id) as $mk)
-                <td>{{ ($mk->t1) ?: '-' }}</td>
-                <td>{{ ($mk->t2) ?: '-' }}</td>
-                <td>{{ ($mk->exm) ?: '-' }}</td>
+                {{-- <td>{{ ($mk->t1) ?: '-' }}</td> --}}
+                {{-- <td>{{ ($mk->t2) ?: '-' }}</td> --}}
+                {{-- <td>{{ ($mk->exm) ?: 'A' }}</td> --}}
                 <td>
                     @if($ex->term === 1) {{ ($mk->tex1) }}
                     @elseif ($ex->term === 2) {{ ($mk->tex2) }}
                     @elseif ($ex->term === 3) {{ ($mk->tex3) }}
-                    @else {{ '-' }}
+                    @else {{ 'A' }}
                     @endif
                 </td>
 
@@ -49,15 +49,15 @@
                  @endif--}}
 
                 {{--Grade, Subject Position & Remarks--}}
-                <td>{{ ($mk->grade) ? $mk->grade->name : '-' }}</td>
-                <td>{!! ($mk->grade) ? Mk::getSuffix($mk->sub_pos) : '-' !!}</td>
-                <td>{{ ($mk->grade) ? $mk->grade->remark : '-' }}</td>
+                <td>{{ ($mk->grade) ? $mk->grade->name : 'A' }}</td>
+                <td>{!! ($mk->grade) ? Mk::getSuffix($mk->sub_pos) : 'A' !!}</td>
+                <td>{{ ($mk->grade) ? $mk->grade->remark : 'A' }}</td>
             @endforeach
         </tr>
     @endforeach
     <tr>
-        <td colspan="4"><strong>TOTAL SCORES OBTAINED: </strong> {{ $exr->total }}</td>
-        <td colspan="3"><strong>FINAL AVERAGE: </strong> {{ $exr->ave }}</td>
+        <td colspan="2"><strong>TOTAL SCORES OBTAINED: </strong> {{ $exr->total }}</td>
+        <td colspan="2"><strong>FINAL AVERAGE: </strong> {{ $exr->ave }}</td>
         <td colspan="2"><strong>CLASS AVERAGE: </strong> {{ $exr->class_ave }}</td>
     </tr>
     </tbody>

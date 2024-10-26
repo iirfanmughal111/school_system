@@ -16,8 +16,17 @@
                     {{-- <strong><span style="color: #1b0c80; font-size: 20px;">MINNA, NIGER STATE</span></strong><br/>--}}
                     <strong><span
                                 style="color: #000; font-size: 15px;"><i>{{ ucwords($s['address']) }}</i></span></strong><br/>
-                    <strong><span style="color: #000; font-size: 15px;"> TABULATION SHEET FOR {{ strtoupper($my_class->name.' '.$section->name.' - '.$ex->name.' ('.$year.')' ) }}
-                    </span></strong>
+                    <strong>
+                        
+                        <span style="color: #000; font-size: 15px;"> SHEET FOR {{ strtoupper($my_class->name.' '.$section->name.' - '.$ex->name.' ('.$year.')' ) }}
+                        </span>
+                    </strong><br>
+                    <strong>
+                       
+                        <span style="color: #000; font-size: 12px;"> Date: </span>{{ $ex->created_at->format('Y-m-d') }} -  <span  class="font-weight-bold">
+                            Total Marks:</span> {{ $ex->marks }}
+                        </span>
+                    </strong>
                 </td>
             </tr>
         </table>
@@ -35,7 +44,7 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>NAMES_OF_STUDENTS_IN_CLASS</th>
+                <th>STUDENTS</th>
                 @foreach($subjects as $sub)
                     <th rowspan="2">{{ strtoupper($sub->slug ?: $sub->name) }}</th>
                 @endforeach

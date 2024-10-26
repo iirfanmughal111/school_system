@@ -22,6 +22,7 @@
                                 <th>S/N</th>
                                 <th>Name</th>
                                 <th>Term</th>
+                                <th>Date</th>
                                 <th>Session</th>
                                 <th>Action</th>
                             </tr>
@@ -32,6 +33,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $ex->name }}</td>
                                     <td>{{ 'Term '.$ex->term }}</td>
+                                    <td>{{\Carbon\Carbon::parse($ex->created_at)->format('m/d/Y') }}</td>
                                     <td>{{ $ex->year }}</td>
                                     <td class="text-center">
                                         <div class="list-icons">

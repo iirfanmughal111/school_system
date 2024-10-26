@@ -76,7 +76,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Date of Birth:</label>
+                                <label>Date of Birth: {{ $sr->user->dob  }}</label>
                                 <input name="dob" value="{{ $sr->user->dob  }}" type="text" class="form-control date-pick" placeholder="Select Date...">
 
                             </div>

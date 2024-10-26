@@ -7,6 +7,7 @@ use App\Http\Requests\Grade\GradeUpdate;
 use App\Repositories\ExamRepo;
 use App\Http\Controllers\Controller;
 use App\Repositories\MyClassRepo;
+use App\Helpers\Qs;
 
 class GradeController extends Controller
 {
@@ -31,7 +32,7 @@ class GradeController extends Controller
     public function store(GradeCreate $req)
     {
         $data = $req->all();
-
+        $data['institute_id'] = Qs::getInstituteId();
         $this->exam->createGrade($data);
         return back()->with('flash_success', __('msg.store_ok'));
     }

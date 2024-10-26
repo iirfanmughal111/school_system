@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AjaxController;
-
+use Carbon\Carbon;
 
 class MarkController extends Controller
 {
@@ -42,14 +42,25 @@ class MarkController extends Controller
        // $this->middleware('teamSAT', ['except' => ['show', 'year_selected', 'year_selector', 'print_view'] ]);
     }
 
-    public function index()
+    public function index(Request $req)
     {
-        $d['exams'] = $this->exam->getExam(['year' => Qs::getSetting('current_session')]);
+       
+       
+        // $d['exams'] = $this->exam->getExam(  ['year' => Qs::getSetting('current_session')] );
+        $selected_date = $req->exam_date ? $req->exam_date : Carbon::now()->format('m/d/Y');
+        $d['exams'] = [];
+        if ($selected_date){
+            $carbonDate = Carbon::createFromFormat('m/d/Y',$selected_date)->startOfDay(); // Convert to Carbon, set to start of day
+            $startOfDay = $carbonDate->format('Y-m-d 00:00:00'); // Start of the day
+            $endOfDay = $carbonDate->format('Y-m-d 23:59:59'); // End of the day
+            $d['exams'] = $this->exam->getExampByDate( ['year' => $this->year],[$startOfDay, $endOfDay]);
+           
+        }
+      
         $d['my_classes'] = $this->my_class->all();
         $d['sections'] = $this->my_class->getAllSections();
         $d['subjects'] = $this->my_class->getAllSubjects();
         $d['selected'] = false;
-
 
         return view('pages.support_team.marks.index', $d);
     }
@@ -95,13 +106,20 @@ class MarkController extends Controller
         $d['sr'] = $this->student->getRecord(['user_id' => $student_id])->first();
         $d['my_class'] = $mc = $this->my_class->getMC(['id' => $exr->first()->my_class_id])->first();
         $d['class_type'] = $this->my_class->findTypeByClass($mc->id);
-        $d['subjects'] = $this->my_class->findSubjectByClass($mc->id);
+        //$d['subjects'] = $this->my_class->findSubjectByClass($mc->id);
+
+        $d['subjectclasses'] = $this->config->getSubjectClasses()->where('is_active',1);
+        $selected = [];
+        $subs = $d['subjectclasses']->where('my_class_id',$d['my_class']->id)->pluck('subject_id')->toArray();
+        $selected = $this->my_class->getSubjectsByIDs($subs); 
+        
+        $d['subjects'] = $selected;
         $d['year'] = $year;
         $d['student_id'] = $student_id;
         $d['skills'] = $this->exam->getSkillByClassType() ?: NULL;
         //$d['ct'] = $d['class_type']->code;
         //$d['mark_type'] = Qs::getMarkType($d['ct']);
-
+        
         return view('pages.support_team.marks.show.index', $d);
     }
 
@@ -133,8 +151,13 @@ class MarkController extends Controller
         $d['tex'] = 'tex'.$exam->term;
         $d['sr'] = $sr =$this->student->getRecord(['user_id' => $student_id])->first();
         $d['class_type'] = $this->my_class->findTypeByClass($mc->id);
-        $d['subjects'] = $this->my_class->findSubjectByClass($mc->id);
-
+        // $d['subjects'] = $this->my_class->findSubjectByClass($mc->id);
+        $d['subjectclasses'] = $this->config->getSubjectClasses()->where('is_active',1);
+        $selected = [];
+        $subs = $d['subjectclasses']->where('my_class_id',$d['my_class']->id)->pluck('subject_id')->toArray();
+        $selected = $this->my_class->getSubjectsByIDs($subs); 
+        
+        $d['subjects'] = $selected;
         $d['ct'] = $ct = $d['class_type']->code;
         $d['year'] = $year;
         $d['student_id'] = $student_id;
@@ -338,15 +361,18 @@ class MarkController extends Controller
         foreach($marks as $mk){
 
             $total = $mk->$tex;
-            $d['grade_id'] = $this->mark->getGrade($total, $class_type->id);
-
+            $grade = $this->mark->getGrade($total, $class_type->id);
+            $d['institute_id'] = Qs::getInstituteId();
+            $d['grade_id'] =  $grade ?  $grade->id : NULL;
             /*      if($exam->term == 3){
                       $d['cum'] = $this->mark->getSubCumTotal($total, $mk->student_id, $mk->subject_id, $class_id, $this->year);
                       $d['cum_ave'] = $cav = $this->mark->getSubCumAvg($total, $mk->student_id, $mk->subject_id, $class_id, $this->year);
                       $grade = $this->mark->getGrade(round($mk->cum_ave), $class_type->id);
                   }*/
-
-            $this->exam->updateMark($mk->id, $d);
+                  
+                  if( $d['grade_id']){
+                      $this->exam->updateMark($mk->id, $d);
+                  }
         }
 
         /* Marks Fix End*/
@@ -417,7 +443,15 @@ class MarkController extends Controller
     {
         
         $d['my_classes'] = $this->my_class->all();
-        $d['exams'] = $this->exam->getExam(['year' => $this->year]);
+        $d['exams'] = [];
+        $selected_date = request()->exam_date ? request()->exam_date : Carbon::now()->format('m/d/Y');
+        if ($selected_date){
+            $carbonDate = Carbon::createFromFormat('m/d/Y',$selected_date)->startOfDay(); // Convert to Carbon, set to start of day
+            $startOfDay = $carbonDate->format('Y-m-d 00:00:00'); // Start of the day
+            $endOfDay = $carbonDate->format('Y-m-d 23:59:59'); // End of the day
+        }
+     
+        // $d['exams'] = $this->exam->getExam(['year' => $this->year]);
         $d['selected'] = FALSE;
        
         if($class_id && $exam_id && $section_id){
@@ -435,9 +469,6 @@ class MarkController extends Controller
             $d['subjects'] = $this->my_class->getSubjectsByIDs($sub_ids);
             $d['students'] = $this->student->getRecordByUserIDs($st_ids)->get()->sortBy('user.id');
             $d['sections'] = $this->my_class->getAllSections();
-
-
-
             $d['selected'] = TRUE;
             $d['my_class_id'] = $class_id;
             $d['section_id'] = $section_id;
@@ -445,16 +476,21 @@ class MarkController extends Controller
             $d['year'] = $this->year;
             $d['marks'] = $mks = $this->exam->getMark($wh);
             $d['exr'] = $exr = $this->exam->getRecord($wh);
-            // dd($exr);
             $d['my_class'] = $mc = $this->my_class->find($class_id);
-             $d['section']  = $d['sections']->where('id',$section_id)->first(); 
+            $d['section']  = $d['sections']->where('id',$section_id)->first(); 
             $d['ex'] = $exam = $this->exam->find($exam_id);
             $d['tex'] = 'tex'.$exam->term;
-            //$d['class_type'] = $this->my_class->findTypeByClass($mc->id);
-            //$d['ct'] = $ct = $d['class_type']->code;
+            $d['exams'] = [];
+            if (isset($d['ex']) && $d['ex']->created_at){
+                $carbonDate =  Carbon::parse($d['ex']->created_at)->startOfDay(); // Convert to Carbon, set to start of day
+                $startOfDay = $carbonDate->format('Y-m-d 00:00:00'); // Start of the day
+                $endOfDay = $carbonDate->format('Y-m-d 23:59:59'); // End of the day
+                $d['exams'] = $this->exam->getExampByDate( ['year' => $this->year],[$startOfDay, $endOfDay]);
+            }
+        }else{
+            $d['exams'] = $this->exam->getExampByDate( ['year' => $this->year],[$startOfDay, $endOfDay]);
         }
-        // dd($d);
-// dd( $d['subjects']);
+
         return view('pages.support_team.marks.tabulation.index', $d);
     }
 

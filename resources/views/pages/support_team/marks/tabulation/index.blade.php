@@ -2,9 +2,25 @@
 @section('page_title', 'Tabulation Sheet')
 @section('content')
     <div class="card">
-        <div class="card-header header-elements-inline">
-            <h5 class="card-title"><i class="icon-books mr-2"></i> Tabulation Sheet</h5>
-            {!! Qs::getPanelOptions() !!}
+        <div class="card-header">
+           
+            <div class="row">
+                <div class="col-md-3">
+                    <h5 class="card-title"><i class="icon-books mr-2"></i>Tabulation Sheet </h5> 
+                </div>
+                <div class="col-md-9  header-elements-inline">
+                    @php
+                    if ($selected){
+                        $date = \Carbon\Carbon::parse($ex->created_at)->format('m/d/Y'); 
+                       
+                    }else {
+                        $date = request('exam_date', \Carbon\Carbon::today()->format('m/d/Y'));
+                    }
+                    @endphp
+                    <input name="exam_date" value="{{ $date}}" {{ $selected ? 'disabled' : '' }} type="text" class="form-control date-pick" placeholder="Select Date...">
+                {!! Qs::getPanelOptions() !!}  </div>
+            </div>
+          
         </div>
 
         <div class="card-body">
@@ -67,14 +83,26 @@
     @if($selected)
         <div class="card">
             <div class="card-header">
-                <h6 class="card-title font-weight-bold">Tabulation Sheet for {{ $my_class->name.' '.$section->name.' - '.$ex->name.' ('.$year.')' }}</h6>
+                <div class="row">
+                    <div class="col-md-8">
+                            <h6 class="card-title font-weight-bold">Sheet for {{ $my_class->name.' '.$section->name.' - '.$ex->name.' ('.$year.')' }}</h6>
+
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-end">
+                    <h6 class="card-title ">
+                        <span  class="font-weight-bold">
+                        Date: </span>{{ $ex->created_at->format('Y-m-d') }} -  <span  class="font-weight-bold">
+                             Total Marks:</span> {{ $ex->marks }}</h6>
+                       
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <table class="table table-responsive table-striped">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>NAMES OF STUDENTS IN CLASS</th>
+                        <th>STUDENTS</th>
                        @foreach($subjects as $sub)
                        <th title="{{ $sub->name }}" rowspan="2">{{ strtoupper($sub->slug ?: $sub->name) }}</th>
                        @endforeach
@@ -108,7 +136,7 @@
 
                             <td style="color: darkred">{{ $marks_meta ? $marks_meta->total  : 'A' }}</td>
                             <td style="color: darkblue">{{  $marks_meta ? $marks_meta->ave  : 'A' }}</td>
-                            <td style="color: darkgreen">{!! Mk::getSuffix($exr->where('student_id', $s->user_id)->first()->pos) ?? 'A' !!}</td>
+                            <td style="color: darkgreen">{!!  $marks_meta ? Mk::getSuffix( $marks_meta->pos) : 'A' !!}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -120,4 +148,16 @@
             </div>
         </div>
     @endif
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('input[name="exam_date"]').on('change', function() {
+                var examDate = $(this).val();
+                var currentUrl = new URL(window.location.href);
+                currentUrl.searchParams.set('exam_date', examDate);
+                window.location.href = currentUrl.toString();
+            });
+        });
+    </script>
 @endsection
